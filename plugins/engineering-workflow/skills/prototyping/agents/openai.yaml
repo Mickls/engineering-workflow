@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prototyping"
+  short_description: "正式实现前验证 UI、状态机、业务规则、数据模型或 API 形状"
+  default_prompt: "按原型工作流处理这个需求：先明确原型要回答的问题，再选择 UI 或 logic 分支构建 throwaway 原型。"

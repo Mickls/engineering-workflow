@@ -1,0 +1,4 @@
+interface:
+  display_name: "Coding Standards"
+  short_description: "通用编码规则、调用链校验、错误处理、数据库和依赖管理"
+  default_prompt: "按项目编码规范实现这个任务，优先复用项目已有能力并沿用现有风格。"

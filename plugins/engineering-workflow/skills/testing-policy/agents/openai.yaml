@@ -1,0 +1,4 @@
+interface:
+  display_name: "Testing Policy"
+  short_description: "高价值链路测试、回归复现、新增/跳过判断和失败诊断规则"
+  default_prompt: "按测试策略处理这个任务：用少量有证明力的测试验证用户行为，优先从完整调用链进入；失败时先诊断再决定改测试或逻辑。"

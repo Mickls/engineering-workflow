@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Setup"
+  short_description: "初始化项目级工程上下文、命令、术语、ADR 和 issue 约定"
+  default_prompt: "按项目工程上下文初始化流程检查当前仓库，并创建或更新 docs/agents、CONTEXT.md、ADR 等协作文档。"

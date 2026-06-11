@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue Slicing"
+  short_description: "把大需求拆成可独立完成、可验证的垂直切片"
+  default_prompt: "按 issue slicing 流程把这个需求或计划拆成可独立完成和验证的垂直切片，并标注依赖和覆盖约束。"

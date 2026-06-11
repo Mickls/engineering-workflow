@@ -1,0 +1,4 @@
+interface:
+  display_name: "Engineering Handoff"
+  short_description: "为长任务、会话切换或交给另一个 agent 生成工程交接文档"
+  default_prompt: "按工程交接流程生成 handoff，记录当前目标、已完成事项、验证结果、风险和下一步。"

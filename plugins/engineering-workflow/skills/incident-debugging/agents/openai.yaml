@@ -1,0 +1,4 @@
+interface:
+  display_name: "Incident Debugging"
+  short_description: "线上问题复现、根因定位、最小修复和同路径验证"
+  default_prompt: "按线上问题排查流程处理这个问题：先从真实入口复现，再证明根因，最后做最小修复和同路径验证。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Requirements Workflow"
+  short_description: "需求对齐、issue 文档、design/plan 和需求变更流程"
+  default_prompt: "按需求工作流分析这个任务：先对齐需求和调用链；仅在非轻量且用户未要求跳过文档时创建或更新 issue/design/plan。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Review"
+  short_description: "显式请求时分析模块边界、测试 seam 和重构机会"
+  default_prompt: "按架构审查流程分析这片代码的模块边界、测试 seam、架构摩擦和可选改进，不默认修改生产代码。"

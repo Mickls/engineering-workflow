@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diagnosis Workflow"
+  short_description: "普通 bug 和失败测试的反馈循环、复现、假设验证和回归修复"
+  default_prompt: "按诊断工作流处理这个问题：先建立可靠反馈循环，再复现、提出可证伪假设、逐一验证并最小修复。"
