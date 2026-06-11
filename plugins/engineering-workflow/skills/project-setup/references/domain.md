@@ -1,6 +1,6 @@
 # Domain 文档规则
 
-`CONTEXT.md` 用于记录项目领域语言。它不是 spec、不是设计文档、不是实现说明。
+`.codex/engineering-workflow/context.md` 用于记录项目领域语言。它不是 spec、不是设计文档、不是实现说明。
 
 推荐格式：
 
@@ -20,9 +20,9 @@ _Avoid_: 不建议使用的同义词
 - 定义要短，说明它是什么，不解释实现。
 - 当多个词表达同一概念时，选择一个 canonical term。
 - 输出、测试名、issue 标题和方案中应优先使用 canonical term。
-- 如果用户使用的术语和 `CONTEXT.md` 冲突，先指出冲突并确认。
+- 如果用户使用的术语和 `.codex/engineering-workflow/context.md` 冲突，先指出冲突并确认。
 
-ADR 放在 `docs/adr/`，仅记录：
+ADR 放在 `.codex/engineering-workflow/adr/`，仅记录：
 
 - 难以逆转的架构或技术选择。
 - 未来读者容易觉得奇怪的决策。

@@ -1,4 +1,4 @@
 interface:
   display_name: "Requirements Workflow"
-  short_description: "需求对齐、issue 文档、design/plan 和需求变更流程"
-  default_prompt: "按需求工作流分析这个任务：先对齐需求和调用链；仅在非轻量且用户未要求跳过文档时创建或更新 issue/design/plan。"
+  short_description: "需求对齐、.codex issue 文档、design/plan 和需求变更流程"
+  default_prompt: "按需求工作流分析这个任务：先对齐需求和调用链；非轻量需求默认在 .codex/engineering-workflow/issues 下创建或更新 design/plan，写入关键约束覆盖表和需求覆盖矩阵，并在用户确认前停止。用户要求不写文档时，按非轻量 no-doc 例外保留最小约束清单。"

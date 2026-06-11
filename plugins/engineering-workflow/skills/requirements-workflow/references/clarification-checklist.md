@@ -12,7 +12,7 @@
 
 - existing / non-existing 是否都要覆盖？
 - 手动入口和自动入口语义是否不同？
-- root 内外、include/intake、exclude、权限、租户是否影响行为？
+- root 内外、include/exclude、权限、租户是否影响行为？
 - 失败、重试、并发、重复调用是否有特殊语义？
 
 ## 数据和兼容性

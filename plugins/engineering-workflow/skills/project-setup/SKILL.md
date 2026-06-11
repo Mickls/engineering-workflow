@@ -1,6 +1,6 @@
 ---
 name: project-setup
-description: "用于为某个仓库初始化或更新工程协作上下文，包括 issue 目录、常用命令、领域术语、ADR、测试环境、轻量任务定义和 out-of-scope 规则；首次在项目中使用 engineering-workflow 或发现项目上下文缺失时使用。"
+description: "用于为某个仓库初始化或更新工程协作上下文，包括 .codex 工作目录、常用命令、领域术语、ADR、测试环境、轻量任务定义和 out-of-scope 规则；首次在项目中使用 engineering-workflow 或发现项目上下文缺失时使用。"
 ---
 
 # 项目工程上下文初始化
@@ -9,20 +9,27 @@ description: "用于为某个仓库初始化或更新工程协作上下文，包
 
 本 skill 用于把“这个项目怎么协作”沉淀到仓库文档中，减少每个会话重复猜测。它不替代 `AGENTS.md`，而是生成项目级上下文，供需求、诊断、编码、测试和交付流程读取。
 
-默认写入：
+默认写入目标仓库的 agent 工作产物目录：
 
 ```text
-docs/agents/
+.codex/engineering-workflow/
+  context.md
+  context-map.md
+  adr/
+  issues/
+  handoffs/
+  reports/
+  prototypes/
+  debug/
+  project/
   project-profile.md
   commands.md
   domain.md
   issue-workflow.md
   out-of-scope.md
-CONTEXT.md
-docs/adr/
 ```
 
-如果仓库已有等价位置，应沿用已有位置，不强行迁移。
+如果仓库已有等价位置或用户指定其他目录，应沿用已有位置，不强行迁移；但需要说明偏离默认 `.codex/engineering-workflow/` 的原因。
 
 ## 使用时机
 
@@ -40,7 +47,8 @@ docs/adr/
 先只读检查：
 
 - 根目录 `AGENTS.md`、`.codex/`、`docs/`、`issue/`、`.github/`、Makefile、package scripts、CI 配置。
-- `CONTEXT.md`、`CONTEXT-MAP.md`、`docs/adr/` 是否存在。
+- `.codex/engineering-workflow/project/`、`.codex/engineering-workflow/context.md`、`.codex/engineering-workflow/context-map.md`、`.codex/engineering-workflow/adr/` 是否存在。
+- 旧位置 `docs/agents/`、`CONTEXT.md`、`CONTEXT-MAP.md`、`docs/adr/` 是否存在；如果已有且项目依赖它们，先说明迁移风险，不要擅自移动。
 - README、开发文档、测试文档、部署文档。
 - 当前仓库的 lint/test/build 命令和 integration 环境要求。
 
@@ -53,6 +61,12 @@ docs/adr/
 - 准备创建或更新哪些文件。
 
 如果要改变已有目录约定，先获得用户确认。
+
+如果项目上下文缺失较多，按三段式确认：
+
+1. Issue tracker：本地 `.codex/engineering-workflow/issues/`、GitHub、GitLab、Linear 或其他。
+2. 状态/标签词汇：`draft`、`reviewing`、`approved`、`doing`、`done`、`blocked`、`deferred` 是否需要映射到项目已有标签。
+3. Domain docs：单上下文 `.codex/engineering-workflow/context.md`，还是多上下文 `.codex/engineering-workflow/context-map.md`。
 
 ### 3. 写入项目上下文
 
@@ -68,9 +82,10 @@ docs/adr/
 
 - 不把项目上下文写成通用教程。
 - 不记录 secret、token、密码或隐私数据。
-- `CONTEXT.md` 只写领域术语，不写实现细节。
-- ADR 只记录难逆转、反直觉、有真实权衡的决策。
-- `out-of-scope.md` 记录已明确拒绝或容易反复误提的方案。
+- `.codex/engineering-workflow/context.md` 只写领域术语，不写实现细节。
+- `.codex/engineering-workflow/adr/` 只记录难逆转、反直觉、有真实权衡的决策。
+- `.codex/engineering-workflow/project/out-of-scope.md` 记录已明确拒绝或容易反复误提的方案。
+- `.codex/engineering-workflow/` 默认是 agent 工作产物，不主动纳入 git；如用户要求共享其中部分文件，先说明纳入原因和 ignore 状态。
 
 ### 4. 完成后
 

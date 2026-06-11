@@ -1,4 +1,4 @@
 interface:
   display_name: "Prototyping"
   short_description: "正式实现前验证 UI、状态机、业务规则、数据模型或 API 形状"
-  default_prompt: "按原型工作流处理这个需求：先明确原型要回答的问题，再选择 UI 或 logic 分支构建 throwaway 原型。"
+  default_prompt: "按原型工作流处理这个需求：先明确原型要回答的问题，再选择 UI 或 logic 分支；原型默认写入 .codex/engineering-workflow/prototypes 或对应 issue 目录，不进入生产路径，也不触发反复 review/fix 循环。"

@@ -1,4 +1,4 @@
 interface:
   display_name: "Incident Debugging"
   short_description: "线上问题复现、根因定位、最小修复和同路径验证"
-  default_prompt: "按线上问题排查流程处理这个问题：先从真实入口复现，再证明根因，最后做最小修复和同路径验证。"
+  default_prompt: "按线上问题排查流程处理这个问题：先从真实入口建立反馈循环并复现，证明根因后做最小修复，同路径验证结果；需要记录证据时写入 .codex/engineering-workflow/debug 或对应 issue。"

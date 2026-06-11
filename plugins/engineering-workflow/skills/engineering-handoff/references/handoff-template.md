@@ -3,23 +3,25 @@
 ```md
 # Handoff
 
-## Current Goal
+## 当前目标
 
-## Key Documents
+## 关键文档
 
 - Design:
 - Plan:
 - Coverage matrix:
 
-## Completed
+## 已完成
 
-## Changed Files
+## 已修改文件
 
-## Verification
+## 验证
 
-## Open Risks
+## 未验证项和风险
 
-## Workspace State
+## 工作区状态
 
-## Next Steps
+## 建议后续 skills
+
+## 下一步
 ```

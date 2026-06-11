@@ -6,14 +6,15 @@
 ## Issue 位置
 
 - 类型：local markdown / GitHub / Linear / 其他
-- 路径或链接：
+- 默认本地路径：`.codex/engineering-workflow/issues/`
+- 外部链接或 tracker：
 
 ## 本项目 issue 结构
 
-- 普通需求：
-- 大需求：
-- handoff：
-- 原型：
+- 普通需求：`.codex/engineering-workflow/issues/REQ-YYYYMMDD-NNN_需求简述/`
+- 大需求：`.codex/engineering-workflow/issues/EPIC-YYYYMMDD-NNN_主题简述/`
+- handoff：`.codex/engineering-workflow/handoffs/`
+- 原型：issue 绑定原型放对应需求目录；非 issue 绑定原型放 `.codex/engineering-workflow/prototypes/`
 
 ## 状态
 
@@ -29,6 +30,9 @@
 
 - 什么时候必须创建 issue：
 - 什么时候可以跳过：
-- design/plan 确认门禁：
-- 需求覆盖矩阵位置：
+- design/plan 确认门禁：非轻量需求创建或更新 design/plan 后必须停止当前回合，等待用户后续消息确认；确认前不得编码、写测试、生成 migration/proto 或安排实现类任务。
+- no-doc 非轻量例外：如果用户明确要求跳过 issue 文档，仍需在回复或临时计划中列出最小关键约束、实现落点、验证入口，并在交付前逐条核销。
+- 需求覆盖矩阵位置：`design.md` 放关键约束覆盖表，`plan.md` 放需求覆盖矩阵。
+- UI 原型门禁：独立 UI 需求确认 design/plan 前，默认生成静态 HTML 原型到对应需求目录。
+- ignored 文件规则：`.codex/engineering-workflow/` 默认不主动纳入 git；必要时先说明并等待用户确认。
 ```

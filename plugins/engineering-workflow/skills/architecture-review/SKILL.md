@@ -13,9 +13,9 @@ description: "用于显式请求架构审查、模块深度评估、测试 seam 
 
 优先读取：
 
-- `CONTEXT.md` / `CONTEXT-MAP.md`。
-- 相关 ADR。
-- issue/design/plan 中的约束矩阵。
+- `.codex/engineering-workflow/context.md` / `.codex/engineering-workflow/context-map.md`。
+- 相关 `.codex/engineering-workflow/adr/`。
+- `.codex/engineering-workflow/issues/` 中 design/plan 的约束矩阵。
 - 近期 bug、测试困难点、重复修改点。
 
 ## 审查维度
@@ -30,7 +30,7 @@ description: "用于显式请求架构审查、模块深度评估、测试 seam 
 
 ## 输出
 
-默认输出 markdown；用户需要可视化时可用 [report-template.md](references/report-template.md) 生成临时 HTML 到系统 temp 目录，不写入生产代码。
+默认输出 markdown。需要落盘时写入 `.codex/engineering-workflow/reports/`；用户需要可视化时可用 [report-template.md](references/report-template.md) 生成临时 HTML 到 `.codex/engineering-workflow/reports/` 或系统 temp 目录，不写入生产代码。
 
 每个候选项包含：
 

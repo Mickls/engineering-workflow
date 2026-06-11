@@ -1,6 +1,6 @@
 {
   "name": "engineering-workflow",
-  "version": "0.1.0+codex.20260611081019",
+  "version": "0.2.0",
   "description": "Engineering workflow skills for project setup, requirements, diagnosis, incidents, prototyping, slicing, architecture, coding, testing, handoff, and delivery.",
   "author": {
     "name": "Local developer"
@@ -9,7 +9,7 @@
   "interface": {
     "displayName": "Engineering Workflow",
     "shortDescription": "Project setup, requirements, debugging, prototyping, coding, testing, and delivery workflows.",
-    "longDescription": "Engineering Workflow groups project-engineering skills for project setup, requirement alignment, diagnosis, incident debugging, prototyping, issue slicing, architecture review, language-agnostic implementation standards, test policy, engineering handoff, and verification delivery. It does not define or override Codex runtime abilities such as sub-agent lifecycle management.",
+    "longDescription": "Engineering Workflow groups project-engineering skills for project setup, requirement alignment, diagnosis, incident debugging, prototyping, issue slicing, architecture review, language-agnostic implementation standards, test policy, engineering handoff, and verification delivery. Runtime artifacts default to .codex/engineering-workflow/ in the target repository. It does not define or override Codex runtime abilities such as sub-agent lifecycle management.",
     "developerName": "Local developer",
     "category": "Productivity",
     "capabilities": [],

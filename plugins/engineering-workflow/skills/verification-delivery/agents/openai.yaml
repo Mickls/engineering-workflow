@@ -1,4 +1,4 @@
 interface:
   display_name: "Verification Delivery"
   short_description: "lint/test/build 验证、完成声明门禁和最终交付格式"
-  default_prompt: "按验证和交付规则检查这个任务，提供验证证据和剩余风险。"
+  default_prompt: "按验证和交付规则检查这个任务：核销 .codex/engineering-workflow 下的 design/plan 或 no-doc 最小关键约束清单，提供 lint/test/build 证据、未验证项和剩余风险。"
