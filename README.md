@@ -9,6 +9,8 @@
 
 核心约束包括：项目上下文初始化、领域术语和 ADR 沉淀、需求关键约束覆盖表、plan 需求覆盖矩阵、实现回填、测试覆盖核销、反馈循环优先的诊断流程和交付前验证核销，用于减少 design/plan 写清楚但实现遗漏边界的情况。
 
+项目初始化会记录 `.codex/engineering-workflow/project/contracts.md`，用于沉淀当前项目语言、框架、接口校验、输入标准化和依赖保证。后续实现应遵从这些项目契约，避免在内部逻辑重复写字符串标准化、空值/空内容判断、依赖存在性判断或无证据默认值兜底。
+
 默认工作产物目录为目标仓库的 `.codex/engineering-workflow/`。需求文档、项目上下文、原型、handoff、报告和诊断记录默认写入该目录，不放在项目主目录。
 
 ## 维护原则
@@ -94,6 +96,7 @@ global/AGENTS.md
 .agents/plugins/marketplace.json
 scripts/validate-workflow.sh
 scripts/validate-workflow.py
+scripts/audit-defensive-code.sh
 plugins/engineering-workflow/
   .codex-plugin/plugin.json
   skills/

@@ -41,6 +41,23 @@ description: "用于声明任务完成前、代码或文档修改后、提交前
 - 如果实现过程中发现 design/plan 漏了关键约束，先更新文档并说明，不得把新行为藏在代码里。
 - 如果用户要求跳过文档，最终回复仍需列出最小关键约束的实现落点、验证证据或未验证风险。
 
+## 防御式代码审查
+
+如果本次改动涉及生产代码、测试代码或脚本，应在交付前检查 diff 是否新增或清理了防御式代码候选：
+
+- `string-normalization`：trim、strip、normalize、大小写转换、空白折叠、类型 coercion。
+- `empty-check`：nil、null、undefined、None、Optional empty、空字符串、空集合、空对象。
+- `dependency-guard`：对已由构造函数、依赖注入、模块系统、框架生命周期、generated code 或 fixture 保证存在的依赖重复判空。
+- `default-fallback`：无证据默认值兜底。
+- `error-wrapping` / `logging`：重复错误包装、重复日志或重复错误映射。
+
+交付要求：
+
+- 新增候选必须说明边界证据，或说明已删除/移动到真实边界。
+- 清理存量候选必须说明删除、保留、移动和未动的分类结果。
+- 如果项目存在 `.codex/engineering-workflow/project/contracts.md`，必须说明是否读取，以及哪些契约影响了本次判断。
+- 未完成防御式代码审查时，不得声称代码改动已完成。
+
 ## lint
 
 编码后运行项目对应的 lint。

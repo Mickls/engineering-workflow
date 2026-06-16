@@ -24,6 +24,7 @@ description: "用于为某个仓库初始化或更新工程协作上下文，包
   project/
   project-profile.md
   commands.md
+  contracts.md
   domain.md
   issue-workflow.md
   out-of-scope.md
@@ -51,6 +52,9 @@ description: "用于为某个仓库初始化或更新工程协作上下文，包
 - 旧位置 `docs/agents/`、`CONTEXT.md`、`CONTEXT-MAP.md`、`docs/adr/` 是否存在；如果已有且项目依赖它们，先说明迁移风险，不要擅自移动。
 - README、开发文档、测试文档、部署文档。
 - 当前仓库的 lint/test/build 命令和 integration 环境要求。
+- 当前项目语言、框架和入口契约：route/controller/handler/resolver/CLI/job、middleware、binding、schema、OpenAPI/proto、GraphQL、表单校验、依赖注入、模块系统、bootstrap、generated code 和测试 fixture。
+- 哪些输入已在边界完成 trim/strip/normalize、类型转换、必填/非空/枚举/范围/权限/租户/资源归属校验；哪些依赖已由构造函数、DI container、framework lifecycle、module provider 或 fixture 保证存在。
+- 哪些外部数据边界仍不安全：数据库旧数据、缓存、消息、文件、网络响应、反序列化、用户脚本、第三方回调等。
 
 ### 2. 给出发现和建议
 
@@ -74,6 +78,7 @@ description: "用于为某个仓库初始化或更新工程协作上下文，包
 
 - [project-profile.md](references/project-profile.md)
 - [commands.md](references/commands.md)
+- [contracts.md](references/contracts.md)
 - [domain.md](references/domain.md)
 - [issue-workflow.md](references/issue-workflow.md)
 - [out-of-scope.md](references/out-of-scope.md)
@@ -82,6 +87,9 @@ description: "用于为某个仓库初始化或更新工程协作上下文，包
 
 - 不把项目上下文写成通用教程。
 - 不记录 secret、token、密码或隐私数据。
+- `.codex/engineering-workflow/project/contracts.md` 记录当前项目可遵从的工程契约，不记录没有证据的猜测；每条“已保证”都必须写证据位置。
+- 如果框架、接口定义或依赖注入已经保证输入完成标准化、非法值被拦截或依赖存在，内部实现原则上不得重复做同类 trim/strip/normalize、空值/空内容判断或依赖存在性判断。
+- 不确定的保证写入 `Still Unsafe Boundaries` 或待确认项，不要写成已生效契约。
 - `.codex/engineering-workflow/context.md` 只写领域术语，不写实现细节。
 - `.codex/engineering-workflow/adr/` 只记录难逆转、反直觉、有真实权衡的决策。
 - `.codex/engineering-workflow/project/out-of-scope.md` 记录已明确拒绝或容易反复误提的方案。

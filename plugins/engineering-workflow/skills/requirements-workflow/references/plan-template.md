@@ -17,6 +17,12 @@
 | --- | --- | --- | --- | --- |
 | C-001 | Step 1 |  |  | planned |
 
+## 防御式代码审查 / 清理候选
+
+| 候选 | 类型 | 证据来源 | 处理 | 验证 |
+| --- | --- | --- | --- | --- |
+|  | string-normalization / empty-check / dependency-guard / default-fallback / error-wrapping / logging | project contracts / 调用链 / public API | keep-boundary / remove-redundant / move-to-boundary / needs-evidence |  |
+
 ## 实施步骤
 
 ### 1. 步骤标题
@@ -42,6 +48,7 @@
 要求：
 
 - 每个 design 约束 ID 必须出现在 `需求覆盖矩阵`。
+- 如果本需求涉及新增或清理防御式代码，必须填写“防御式代码审查 / 清理候选”；无候选时写明已检查。
 - 一个测试可以覆盖多个约束，不要为了表格制造低价值测试。
 - 实现后回填实际代码落点、测试名、命令和状态。
 - 独立 UI 需求必须包含“UI 原型确认”步骤和原型路径。

@@ -20,6 +20,7 @@
 ## 重要路径
 
 - 需求文档：`.codex/engineering-workflow/issues/`
+- 项目契约：`.codex/engineering-workflow/project/contracts.md`
 - 项目术语：`.codex/engineering-workflow/context.md`
 - ADR：`.codex/engineering-workflow/adr/`
 - 测试文档：

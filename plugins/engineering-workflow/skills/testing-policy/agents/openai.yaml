@@ -1,4 +1,4 @@
 interface:
   display_name: "Testing Policy"
   short_description: "高价值链路测试、回归复现、新增/跳过判断和失败诊断规则"
-  default_prompt: "按测试策略处理这个任务：读取 .codex/engineering-workflow 下的 design/plan 或 no-doc 最小关键约束清单，用少量有证明力的测试验证用户行为，优先从完整调用链进入；失败时先诊断再决定改测试或逻辑。"
+  default_prompt: "按测试策略处理这个任务：读取 .codex/engineering-workflow 下的 design/plan、project/contracts.md 或 no-doc 最小关键约束清单，用少量有证明力的测试验证用户行为，优先从完整调用链进入；清理重复防御式代码时证明边界契约和外部行为，不为每个内部 guard 堆低价值测试；失败时先诊断再决定改测试或逻辑。"
