@@ -1,4 +1,4 @@
 interface:
   display_name: "Coding Standards"
   short_description: "通用编码规则、调用链校验、错误处理、数据库和依赖管理"
-  default_prompt: "按项目编码规范实现这个任务：先读取 .codex/engineering-workflow 下已确认的 design/plan 或 no-doc 最小关键约束清单，以及 project/contracts.md 中适用的项目契约；优先复用项目已有能力并沿用现有风格。不要无证据新增字符串标准化、空值/空内容判断、依赖存在性判断或默认值兜底；清理存量防御式代码时追溯调用链并按 keep-boundary/remove-redundant/move-to-boundary/needs-evidence 核销，完成后核销约束和验证入口。"
+  default_prompt: "按项目编码规范实现这个任务：先读取 .codex/engineering-workflow 下已确认的 design/plan 或 no-doc 最小关键约束清单，并检查 project/contracts.md、commands.md、project-profile.md 等上下文是否缺失或 stale；缺失时先 project-setup bootstrap，命中 watch_patterns、known_gaps 或超出 scan_scope 时先 targeted-refresh。优先复用项目已有能力并沿用现有风格。不要无证据新增字符串标准化、空值/空内容判断、依赖存在性判断或默认值兜底；如果本次 diff 改变入口、schema、validation、DI/bootstrap、命令、CI 或领域边界，交付前刷新对应 project 文档；清理存量防御式代码时追溯调用链并按 keep-boundary/remove-redundant/move-to-boundary/needs-evidence 核销，完成后核销约束和验证入口。"

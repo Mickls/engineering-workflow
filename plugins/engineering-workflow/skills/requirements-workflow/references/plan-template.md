@@ -17,6 +17,14 @@
 | --- | --- | --- | --- | --- |
 | C-001 | Step 1 |  |  | planned |
 
+## 项目上下文 readiness / freshness
+
+- 读取的 project 文档：
+- readiness 状态：ready / bootstrapped / refreshed / targeted-refreshed / audit-only / skipped
+- freshness 判断依据：source_commit / scan_scope / evidence_paths / watch_patterns / known_gaps
+- 本需求是否改变项目契约来源：
+- 交付前需要回写的上下文：
+
 ## 防御式代码审查 / 清理候选
 
 | 候选 | 类型 | 证据来源 | 处理 | 验证 |
@@ -48,6 +56,8 @@
 要求：
 
 - 每个 design 约束 ID 必须出现在 `需求覆盖矩阵`。
+- 非轻量需求必须填写“项目上下文 readiness / freshness”；缺失或过期时，先 bootstrap/refresh，或记录用户禁止写入时的临时契约和风险。
+- 如果本需求会修改入口、schema、validation、DI/bootstrap、命令、CI、领域术语或核心业务边界，必须在计划中列出交付前回写的 project 文档。
 - 如果本需求涉及新增或清理防御式代码，必须填写“防御式代码审查 / 清理候选”；无候选时写明已检查。
 - 一个测试可以覆盖多个约束，不要为了表格制造低价值测试。
 - 实现后回填实际代码落点、测试名、命令和状态。

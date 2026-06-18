@@ -3,6 +3,23 @@
 ```md
 # Issue Workflow
 
+## Freshness
+
+- updated_at:
+- source_commit:
+- scan_scope:
+  - issue tracker / repo docs / AGENTS.md / workflow docs
+- evidence_paths:
+  -
+- watch_patterns:
+  - AGENTS.md
+  - .github/**
+  - docs/**
+  - README*
+  - .codex/engineering-workflow/project/issue-workflow.md
+- known_gaps:
+  -
+
 ## Issue 位置
 
 - 类型：local markdown / GitHub / Linear / 其他
@@ -37,3 +54,8 @@
 - UI 原型门禁：独立 UI 需求确认 design/plan 前，默认生成静态 HTML 原型到对应需求目录。
 - ignored 文件规则：`.codex/engineering-workflow/` 默认不主动纳入 git；必要时先说明并等待用户确认。
 ```
+
+要求：
+
+- 如果项目改用外部 issue tracker、状态标签或确认流程，需要 targeted refresh 本文件。
+- 无法确认的 tracker 或标签映射写入 `known_gaps`，不要猜测。

@@ -50,7 +50,8 @@
 使用规则：
 
 - 非轻量编码任务开始前，必须先判断并加载 `requirements-workflow`；进入实现阶段时加载 `coding-standards`。
-- 首次进入复杂项目或发现项目命令、术语、issue 约定缺失时，应使用 `project-setup` 建立项目上下文。
+- 首次进入复杂项目、非轻量任务发现 `.codex/engineering-workflow/project/*` 缺失、项目上下文缺少 freshness 元数据、或当前任务命中已记录 `watch_patterns` / `known_gaps` 时，必须先使用 `project-setup` 的 bootstrap / refresh / targeted-refresh 建立或刷新项目上下文。
+- `.codex/engineering-workflow/` 默认是 agent 工作产物；非轻量任务需要的项目上下文可默认创建或更新。只有写入非默认位置、改变项目已有目录约定、选择外部 issue tracker、做状态映射、多上下文结构或纳入 git 时，才需要先让用户确认。
 - 普通 bug 和失败测试先用 `diagnosis-workflow` 建立反馈循环；线上事故、数据误删、幂等、并发和重复调用问题必须使用 `incident-debugging`。
 - 线上问题、生产 bugfix、数据误删、重复调用、幂等性或并发问题，未从真实入口复现并证明根因前，不得修改生产逻辑或宣称已修复。
 - 独立 UI、复杂状态机、业务规则或数据模型在正式实现前可使用 `prototyping`；原型是临时验证手段，不是生产实现。
@@ -65,6 +66,7 @@
 
 - 修改型需求必须追溯完整调用链路，包括入口、调用方、被调用方、数据来源、返回值、错误处理、副作用和已有测试。
 - 新增型需求必须查阅相关模块，理解用户术语在当前项目中的含义，并参考相似实现。
+- 非轻量需求创建或更新 design/plan 前，必须完成 context readiness 检查；关键上下文缺失时先 bootstrap，过期或不覆盖当前模块时先 targeted refresh。
 - 除非用户明确要求 MVP、最小实现或临时方案，需求设计和计划必须按完整功能闭环展开；分阶段交付不能默认缩减最终范围。
 - 非轻量需求默认按 `requirements-workflow` 在 `.codex/engineering-workflow/issues/` 创建或维护 `design.md` / `plan.md`，并提炼关键约束覆盖表和需求覆盖矩阵。
 - 这是硬门禁：非轻量需求创建或更新 `design.md` / `plan.md` 后，必须停止当前回合并请用户 review；确认必须来自后续用户消息。确认前不得编码、写测试、生成 migration/proto 或安排实现类工作。
@@ -75,6 +77,7 @@
 ## 6. 编码和测试门禁
 
 - 编码遵循 `coding-standards`：复用优先、校验放在调用链顶层、减少无意义中间类型、沿用项目风格。
+- 编码前必须确认项目契约和命令上下文可用且未明显过期；缺失或 stale 时先用 `project-setup` bootstrap/refresh，不得凭空假设上游已经完成标准化、validation 或依赖注入保证。
 - 实现非轻量需求时，必须回填或核销关键约束覆盖矩阵；每个约束要有实现落点、验证证据或明确的不适用/阻塞理由。
 - 中高风险编码完成后必须做交叉审查风险判断；是否使用子 agent review 由主线程依据 Codex 原生能力、当前工具规则和任务风险决定，不由工程化 skill 定义。
 - 行为变更优先测试完整调用链路，而不是只测被改动的小函数。
@@ -92,6 +95,7 @@
 ## 8. 验证和交付
 
 - 完成编码后必须执行项目对应 lint；全项目 lint 成本过高时，可以只检查改动文件或受影响 package，但必须说明范围。
+- 如果本次修改改变了入口、schema、validation、DI/bootstrap、命令、CI、领域术语或核心业务边界，交付前必须回写或刷新 `.codex/engineering-workflow/project/*`；用户禁止写入时说明未刷新风险。
 - 需要运行与本次改动相关的测试；无法运行时必须说明原因和剩余风险。
 - 不声称“完成”“通过”“已修复”，除非刚刚运行过对应验证并确认结果。
 - 非轻量需求交付前必须核销关键约束覆盖矩阵；存在未验证或未解释的关键约束时，不得声称完成。

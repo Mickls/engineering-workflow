@@ -13,6 +13,16 @@ description: "用于规划、编写、更新、运行或解释测试；处理测
 
 如果正在诊断 bug，先按 `diagnosis-workflow` 或 `incident-debugging` 建立反馈循环，再决定测试落点。
 
+## Context Readiness Gate
+
+规划、编写或解释非轻量测试前，先读取项目上下文：
+
+- `.codex/engineering-workflow/project/commands.md`：lint/test/build/typecheck 命令、适用范围、环境要求和不稳定测试。
+- `.codex/engineering-workflow/project/contracts.md`：输入标准化、validation 边界、依赖保证、fixture 保证和仍不安全边界。
+- `.codex/engineering-workflow/project/project-profile.md`、`context.md` 或 `context-map.md`：项目类型、模块边界和领域术语。
+
+如果这些上下文缺失、freshness 元数据缺失、当前测试涉及的 package/module/fixture 不在 `scan_scope` 中，或 package/build/test/CI 配置命中 `watch_patterns`，先使用 `project-setup bootstrap` 或 `targeted-refresh`。用户禁止写入时，在测试计划或结果汇报中记录临时命令来源、契约证据和剩余风险。
+
 ## 判断是否需要测试
 
 以下情况应新增或更新测试：
@@ -96,7 +106,7 @@ description: "用于规划、编写、更新、运行或解释测试；处理测
 
 清理重复防御式代码属于行为保持或契约收敛型重构。优先证明外部行为和项目契约，而不是为每个内部 guard 补低价值测试。
 
-清理前先读取 `.codex/engineering-workflow/project/contracts.md`，确认哪些输入标准化、validation 边界或依赖保证已经由项目契约覆盖。
+清理前先读取并确认 `.codex/engineering-workflow/project/contracts.md` freshness，确认哪些输入标准化、validation 边界或依赖保证已经由项目契约覆盖。契约缺失或过期时，先 targeted refresh，或把相关保证降级为 `needs-evidence`。
 
 验证策略：
 

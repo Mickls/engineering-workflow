@@ -7,6 +7,21 @@
 ```md
 # Context
 
+## Freshness
+
+- updated_at:
+- source_commit:
+- scan_scope:
+  -
+- evidence_paths:
+  -
+- watch_patterns:
+  - docs/**
+  - README*
+  - domain docs / product docs / glossary sources
+- known_gaps:
+  -
+
 ## Language
 
 **Term**:
@@ -21,6 +36,8 @@ _Avoid_: 不建议使用的同义词
 - 当多个词表达同一概念时，选择一个 canonical term。
 - 输出、测试名、issue 标题和方案中应优先使用 canonical term。
 - 如果用户使用的术语和 `.codex/engineering-workflow/context.md` 冲突，先指出冲突并确认。
+- 当产品文档、领域状态机、核心业务边界或术语来源变化后，需要 targeted refresh 本文件。
+- 无证据或只在单次对话中出现的词，不要直接沉淀为 canonical term；先写入 `known_gaps` 或需求文档待确认项。
 
 ADR 放在 `.codex/engineering-workflow/adr/`，仅记录：
 
