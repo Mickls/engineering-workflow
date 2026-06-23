@@ -1,7 +1,7 @@
-# Design 模板
+# 需求设计模板
 
 ```md
-# Design
+# 需求设计
 
 ## 需求背景
 
@@ -12,7 +12,7 @@
 ## 输入契约 / 校验边界
 
 - 项目契约来源：`.codex/engineering-workflow/project/contracts.md`
-- context readiness：ready / bootstrapped / refreshed / targeted-refreshed / audit-only / skipped
+- 上下文 readiness：ready / bootstrapped / refreshed / targeted-refreshed / audit-only / skipped
 - freshness：updated_at / source_commit / scan_scope / known_gaps
 - 本需求涉及范围是否在 scan_scope 内：
 - 已由入口或框架保证的标准化：
@@ -55,6 +55,7 @@
 
 要求：
 
+- 除非用户明确要求其他语言，`design.md` 的正文、标题、表格列名和状态解释都必须使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
 - `design.md` 是当前有效方案文档，不是推理日志或变更流水；不要写上一版方案、废弃概念、纠错痕迹或“原本/后来改为”等过程叙述。
 - 更新已有 `design.md` 时，重写受影响章节并删除旧方案残留；只在当前方案需要时链接 ADR、out-of-scope 或 handoff，不在正文复述废弃方案。
 - `关键约束覆盖表` 不能省略。

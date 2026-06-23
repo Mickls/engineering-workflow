@@ -1,11 +1,11 @@
-# Project Contracts 模板
+# 项目契约模板
 
 `.codex/engineering-workflow/project/contracts.md` 用于记录当前项目已经由语言、框架、入口定义、依赖注入、模块系统、generated code 或 fixture 保证的工程契约。它不是通用教程，也不是愿望清单；每条保证都要有证据位置。
 
 ```md
-# Project Contracts
+# 项目契约
 
-## Scope
+## 适用范围
 
 - 主要语言/运行时：
 - 主要框架：
@@ -13,7 +13,7 @@
 - 适用模块：
 - 最近更新：
 
-## Freshness
+## Freshness 元数据
 
 - updated_at:
 - source_commit:
@@ -26,37 +26,37 @@
 - known_gaps:
   -
 
-## Request / Input Normalization
+## 请求 / 输入标准化
 
 | 入口/框架能力 | 已保证内容 | 证据位置 | 内部实现规则 |
 | --- | --- | --- | --- |
 |  |  |  |  |
 
-## Validation Boundaries
+## 校验边界
 
 | 入口/接口定义 | 已拦截内容 | 证据位置 | 内部实现规则 |
 | --- | --- | --- | --- |
 |  |  |  |  |
 
-## Dependency Guarantees
+## 依赖保证
 
 | 依赖/资源 | 保证来源 | 证据位置 | 内部实现规则 |
 | --- | --- | --- | --- |
 |  |  |  |  |
 
-## Still Unsafe Boundaries
+## 仍不安全的边界
 
 | 边界 | 不保证内容 | 需要本地校验的位置 | 原因 |
 | --- | --- | --- | --- |
 |  |  |  |  |
 
-## Refresh Notes
+## 刷新记录
 
 | 触发来源 | 影响契约 | 处理结果 | 更新时间 |
 | --- | --- | --- | --- |
 |  |  | refreshed / downgraded-to-unsafe / needs-evidence |  |
 
-## Defensive Code Audit Patterns
+## 防御式代码审查模式
 
 | 类型 | 项目适用模式 | 说明 | 状态 |
 | --- | --- | --- | --- |
@@ -68,6 +68,7 @@
 
 规则：
 
+- 除非用户明确要求其他语言，项目契约文档正文、标题、表格列名和状态解释都必须使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
 - 按语义记录契约，不绑定单一语言；Go、TypeScript、Python、JVM、C#、Rust 等写法只能作为项目模式示例。
 - `Freshness` 必须记录当前契约的证据范围；无法获取 git commit 时写 `unknown` 和原因。
 - `watch_patterns` 应覆盖会改变契约的入口、schema、middleware、validation、DI/bootstrap、module provider、generated code、package/build/test/CI 配置和相关文档。

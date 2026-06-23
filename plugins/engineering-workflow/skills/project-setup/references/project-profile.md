@@ -1,9 +1,9 @@
-# Project Profile 模板
+# 项目画像模板
 
 ```md
-# Project Profile
+# 项目画像
 
-## Freshness
+## Freshness 元数据
 
 - updated_at:
 - source_commit:
@@ -57,6 +57,7 @@
 
 要求：
 
+- 除非用户明确要求其他语言，项目画像正文、标题、表格列名和状态解释都必须使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
 - `Freshness` 记录项目画像的来源，不要只写更新时间。
 - `watch_patterns` 只保留当前项目真实存在或合理相关的模式，避免照搬无关技术栈。
 - 项目结构、主要框架、工作约定或高风险任务定义变化后，需要 targeted refresh 本文件。

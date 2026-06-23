@@ -1,7 +1,7 @@
-# Plan 模板
+# 实施计划模板
 
 ```md
-# Plan
+# 实施计划
 
 ## 总目标
 
@@ -20,7 +20,7 @@
 ## 项目上下文 readiness / freshness
 
 - 读取的 project 文档：
-- readiness 状态：ready / bootstrapped / refreshed / targeted-refreshed / audit-only / skipped
+- 上下文 readiness 状态：ready / bootstrapped / refreshed / targeted-refreshed / audit-only / skipped
 - freshness 判断依据：source_commit / scan_scope / evidence_paths / watch_patterns / known_gaps
 - 本需求是否改变项目契约来源：
 - 交付前需要回写的上下文：
@@ -55,6 +55,7 @@
 
 要求：
 
+- 除非用户明确要求其他语言，`plan.md` 的正文、标题、表格列名和状态解释都必须使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
 - 每个 design 约束 ID 必须出现在 `需求覆盖矩阵`。
 - 非轻量需求必须填写“项目上下文 readiness / freshness”；缺失或过期时，先 bootstrap/refresh，或记录用户禁止写入时的临时契约和风险。
 - 如果本需求会修改入口、schema、validation、DI/bootstrap、命令、CI、领域术语或核心业务边界，必须在计划中列出交付前回写的 project 文档。

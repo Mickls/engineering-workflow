@@ -1,9 +1,9 @@
-# Issue Workflow 模板
+# Issue 工作流模板
 
 ```md
-# Issue Workflow
+# Issue 工作流
 
-## Freshness
+## Freshness 元数据
 
 - updated_at:
 - source_commit:
@@ -57,5 +57,6 @@
 
 要求：
 
+- 除非用户明确要求其他语言，issue 工作流文档正文、标题、表格列名和状态解释都必须使用中文；文件名、命令、issue tracker 名、状态枚举和引用路径可以保留英文。
 - 如果项目改用外部 issue tracker、状态标签或确认流程，需要 targeted refresh 本文件。
 - 无法确认的 tracker 或标签映射写入 `known_gaps`，不要猜测。
