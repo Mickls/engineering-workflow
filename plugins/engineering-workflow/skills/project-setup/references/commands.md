@@ -63,7 +63,7 @@
 
 要求：
 
-- 除非用户明确要求其他语言，命令文档正文、标题、表格列名和状态解释都必须使用中文；文件名、命令、package script 名、状态枚举和引用路径可以保留英文。
+- 除非用户或项目规则明确要求其他语言，命令文档正文、标题、表格列名和状态解释都必须使用中文；文件名、命令、package script 名、状态枚举和引用路径可以保留英文。
 - 只记录当前项目真实可用或有明确证据的命令。
 - 如果命令来自 CI、README、package scripts 或 Makefile，需要在 `evidence_paths` 中标明。
 - package manager、lockfile、CI、构建配置或测试环境变化后，需要 targeted refresh 本文件。

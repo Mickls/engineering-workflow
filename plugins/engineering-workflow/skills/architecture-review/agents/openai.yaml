@@ -1,4 +1,4 @@
 interface:
   display_name: "Architecture Review"
   short_description: "显式请求时分析模块边界、测试 seam 和重构机会"
-  default_prompt: "按架构审查流程分析这片代码的模块边界、测试 seam、架构摩擦和可选改进；读取 .codex/engineering-workflow 下的 context、ADR、design/plan，不默认修改生产代码，报告需要落盘时写入 reports。除非用户明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。"
+  default_prompt: "按架构审查流程分析这片代码的模块边界、测试 seam、架构摩擦和可选改进；读取 .codex/engineering-workflow 下的 context、ADR、design/plan，不默认修改生产代码，报告需要落盘时写入 reports。除非用户或项目规则明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。"

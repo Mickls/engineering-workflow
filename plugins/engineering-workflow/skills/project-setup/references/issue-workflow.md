@@ -32,6 +32,7 @@
 - 大需求：`.codex/engineering-workflow/issues/EPIC-YYYYMMDD-NNN_主题简述/`
 - handoff：`.codex/engineering-workflow/handoffs/`
 - 原型：issue 绑定原型放对应需求目录；非 issue 绑定原型放 `.codex/engineering-workflow/prototypes/`
+- 中文 review 辅助说明：英文主文档在 issue 目录时放同目录；英文主文档在项目正式目录时放 `.codex/engineering-workflow/review-notes/<mirrored-path>.zh-CN.md`
 
 ## 状态
 
@@ -52,11 +53,12 @@
 - no-doc 非轻量例外：如果用户明确要求跳过 issue 文档，仍需在回复或临时计划中列出最小关键约束、实现落点、验证入口，并在交付前逐条核销。
 - 需求覆盖矩阵位置：`design.md` 放关键约束覆盖表，`plan.md` 放需求覆盖矩阵。
 - UI 原型门禁：独立 UI 需求确认 design/plan 前，默认生成静态 HTML 原型到对应需求目录。
+- 英文主文档规则：如果项目要求主文档使用英文，英文文档是权威来源；非轻量且需要用户 review 时，同步生成中文 review 辅助说明，并在说明中标注源文件、`source_commit` 或更新时间、生成时间和“英文原文为准”。
 - ignored 文件规则：`.codex/engineering-workflow/` 默认不主动纳入 git；必要时先说明并等待用户确认。
 ```
 
 要求：
 
-- 除非用户明确要求其他语言，issue 工作流文档正文、标题、表格列名和状态解释都必须使用中文；文件名、命令、issue tracker 名、状态枚举和引用路径可以保留英文。
+- 除非用户或项目规则明确要求其他语言，issue 工作流文档正文、标题、表格列名和状态解释都必须使用中文；文件名、命令、issue tracker 名、状态枚举和引用路径可以保留英文。
 - 如果项目改用外部 issue tracker、状态标签或确认流程，需要 targeted refresh 本文件。
 - 无法确认的 tracker 或标签映射写入 `known_gaps`，不要猜测。

@@ -13,7 +13,9 @@
 
 默认工作产物目录为目标仓库的 `.codex/engineering-workflow/`。需求文档、项目上下文、原型、handoff、报告和诊断记录默认写入该目录，不放在项目主目录。
 
-除非用户明确要求其他语言，工作流生成的回复和落盘工作产物正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
+除非用户或项目规则明确要求其他语言，工作流生成的回复和落盘工作产物正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
+
+如果项目要求主文档使用英文，英文主文档保持权威来源；对于需要用户 review 的非轻量英文文档，工作流会在 `.codex/engineering-workflow/` 下生成中文 review 辅助说明，默认放在对应 issue 目录或 `.codex/engineering-workflow/review-notes/`，用于解释摘要、关键决策、风险和待确认问题。
 
 ## 维护原则
 
@@ -39,6 +41,7 @@
   reports/
   prototypes/
   debug/
+  review-notes/
 ```
 
 这些文件默认用于当前 agent 协作和用户 review，不属于生产代码。除非用户明确要求共享某些文件，否则不要把 `.codex/engineering-workflow/` 强行加入 git。

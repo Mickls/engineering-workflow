@@ -68,7 +68,7 @@
 
 规则：
 
-- 除非用户明确要求其他语言，项目契约文档正文、标题、表格列名和状态解释都必须使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
+- 除非用户或项目规则明确要求其他语言，项目契约文档正文、标题、表格列名和状态解释都必须使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
 - 按语义记录契约，不绑定单一语言；Go、TypeScript、Python、JVM、C#、Rust 等写法只能作为项目模式示例。
 - `Freshness` 必须记录当前契约的证据范围；无法获取 git commit 时写 `unknown` 和原因。
 - `watch_patterns` 应覆盖会改变契约的入口、schema、middleware、validation、DI/bootstrap、module provider、generated code、package/build/test/CI 配置和相关文档。

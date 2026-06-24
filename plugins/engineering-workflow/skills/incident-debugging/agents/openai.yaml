@@ -1,4 +1,4 @@
 interface:
   display_name: "Incident Debugging"
   short_description: "线上问题复现、根因定位、最小修复和同路径验证"
-  default_prompt: "按线上问题排查流程处理这个问题：先从真实入口建立反馈循环并复现，证明根因后做最小修复，同路径验证结果；需要记录证据时写入 .codex/engineering-workflow/debug 或对应 issue。除非用户明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。"
+  default_prompt: "按线上问题排查流程处理这个问题：先从真实入口建立反馈循环并复现，证明根因后做最小修复，同路径验证结果；需要记录证据时写入 .codex/engineering-workflow/debug 或对应 issue。除非用户或项目规则明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。"

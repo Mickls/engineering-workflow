@@ -1,4 +1,4 @@
 interface:
   display_name: "Verification Delivery"
   short_description: "lint/test/build 验证、完成声明门禁和最终交付格式"
-  default_prompt: "按验证和交付规则检查这个任务：核销 .codex/engineering-workflow 下的 design/plan、project/contracts.md、commands.md 或 no-doc 最小关键约束清单，检查 context readiness / freshness，并在 diff 改变入口、schema、validation、DI/bootstrap、命令、CI、领域术语或核心业务边界时刷新对应 project 文档；提供 lint/test/build 证据、未验证项和剩余风险；同时完成防御式代码 diff audit，说明新增/删除/保留/未动的字符串标准化、空值/空内容判断、依赖存在性判断和默认值兜底候选。除非用户明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。"
+  default_prompt: "按验证和交付规则检查这个任务：核销 .codex/engineering-workflow 下的 design/plan、project/contracts.md、commands.md 或 no-doc 最小关键约束清单，检查 context readiness / freshness，并在 diff 改变入口、schema、validation、DI/bootstrap、命令、CI、领域术语或核心业务边界时刷新对应 project 文档；提供 lint/test/build 证据、未验证项和剩余风险；同时完成防御式代码 diff audit，说明新增/删除/保留/未动的字符串标准化、空值/空内容判断、依赖存在性判断和默认值兜底候选。除非用户或项目规则明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。若本次创建或更新英文主文档且需要用户 review，检查对应中文 review 辅助说明是否已同步，并说明源文件、freshness 和剩余风险。"

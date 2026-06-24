@@ -30,7 +30,7 @@ description: "用于显式请求架构审查、模块深度评估、测试 seam 
 
 ## 输出
 
-默认输出中文 markdown。需要落盘时写入 `.codex/engineering-workflow/reports/`；用户需要可视化时可用 [report-template.md](references/report-template.md) 生成临时 HTML 到 `.codex/engineering-workflow/reports/` 或系统 temp 目录，不写入生产代码。除非用户明确要求其他语言，报告正文、标题、表格列名和状态解释都使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
+默认输出中文 markdown。需要落盘时写入 `.codex/engineering-workflow/reports/`；用户需要可视化时可用 [report-template.md](references/report-template.md) 生成临时 HTML 到 `.codex/engineering-workflow/reports/` 或系统 temp 目录，不写入生产代码。除非用户或项目规则明确要求其他语言，报告正文、标题、表格列名和状态解释都使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
 
 每个候选项包含：
 
