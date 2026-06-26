@@ -15,7 +15,7 @@
 
 除非用户或项目规则明确要求其他语言，工作流生成的回复和落盘工作产物正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
 
-如果项目要求主文档使用英文，英文主文档保持权威来源；对于需要用户 review 的非轻量英文文档，工作流会在 `.codex/engineering-workflow/` 下生成中文 review 辅助说明，默认放在对应 issue 目录或 `.codex/engineering-workflow/review-notes/`，用于解释摘要、关键决策、风险和待确认问题。
+如果项目要求主文档使用英文，英文主文档保持权威来源；对于需要用户 review 的非轻量英文文档，工作流会在 `.codex/engineering-workflow/` 下生成中文 review 辅助说明，默认放在对应 issue 目录或 `.codex/engineering-workflow/review-notes/`，用于解释摘要、关键决策、风险和待确认问题。该规则不只适用于 design/plan，也适用于项目自定义的 exploration note、runbook、checklist、report、ADR、protocol、story、support content 等 durable artifacts；`.codex` 下的中文 review aid 不视为 duplicate translated report。
 
 ## 维护原则
 

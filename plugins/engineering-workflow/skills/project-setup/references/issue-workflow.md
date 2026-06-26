@@ -33,6 +33,7 @@
 - handoff：`.codex/engineering-workflow/handoffs/`
 - 原型：issue 绑定原型放对应需求目录；非 issue 绑定原型放 `.codex/engineering-workflow/prototypes/`
 - 中文 review 辅助说明：英文主文档在 issue 目录时放同目录；英文主文档在项目正式目录时放 `.codex/engineering-workflow/review-notes/<mirrored-path>.zh-CN.md`
+- 英文主文档触发类型：design/plan、exploration note、runbook、checklist、report、ADR、protocol、story、support content、其他需要用户 review 的英文文档
 
 ## 状态
 
@@ -54,6 +55,7 @@
 - 需求覆盖矩阵位置：`design.md` 放关键约束覆盖表，`plan.md` 放需求覆盖矩阵。
 - UI 原型门禁：独立 UI 需求确认 design/plan 前，默认生成静态 HTML 原型到对应需求目录。
 - 英文主文档规则：如果项目要求主文档使用英文，英文文档是权威来源；非轻量且需要用户 review 时，同步生成中文 review 辅助说明，并在说明中标注源文件、`source_commit` 或更新时间、生成时间和“英文原文为准”。
+- duplicate translated report 规则：如果项目禁止重复翻译报告或双语协议，`.codex/engineering-workflow/` 下的中文 review aid 仍可生成，除非项目或用户明确禁止任何中文辅助文件；不得把 review aid 写进生产 artifact 目录。
 - ignored 文件规则：`.codex/engineering-workflow/` 默认不主动纳入 git；必要时先说明并等待用户确认。
 ```
 

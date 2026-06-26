@@ -9,7 +9,7 @@ description: "用于为某个仓库初始化或更新工程协作上下文，包
 
 本 skill 用于把“这个项目怎么协作”沉淀到仓库文档中，减少每个会话重复猜测。它不替代 `AGENTS.md`，而是生成和刷新项目级上下文，供需求、诊断、编码、测试和交付流程读取。
 
-除非用户或项目规则明确要求其他语言，项目上下文文档、ADR、issue 约定、命令说明和风险说明的正文、标题、表格列名和状态解释都默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。若项目要求正式协作文档使用英文，需要在 `project-profile.md` 或 `issue-workflow.md` 记录该语言规则，以及中文 review 辅助说明的默认位置。
+除非用户或项目规则明确要求其他语言，项目上下文文档、ADR、issue 约定、命令说明和风险说明的正文、标题、表格列名和状态解释都默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。若项目要求正式协作文档使用英文，需要在 `project-profile.md` 或 `issue-workflow.md` 记录该语言规则、会触发中文 review 辅助说明的 artifact 类型，以及中文 review 辅助说明的默认位置。
 
 默认写入目标仓库的 agent 工作产物目录：
 
@@ -130,6 +130,7 @@ description: "用于为某个仓库初始化或更新工程协作上下文，包
 - Domain docs：单上下文 `.codex/engineering-workflow/context.md`，还是多上下文 `.codex/engineering-workflow/context-map.md`。
 - 非默认写入目录或是否纳入 git。
 - 英文主文档对应的中文 review 辅助说明是否需要放在默认 `.codex/engineering-workflow/review-notes/` 以外的位置。
+- 项目是否存在“禁止 duplicate translated reports / bilingual protocol variants”规则；如果存在，应记录 `.codex` review aid 是否仍允许，以及禁止写入生产文档目录的边界。
 
 如果这些选择不阻塞当前任务，先按默认本地 `.codex/engineering-workflow/` 写入，并在文档中记录默认假设。
 
@@ -155,7 +156,7 @@ description: "用于为某个仓库初始化或更新工程协作上下文，包
 - `.codex/engineering-workflow/context.md` 只写领域术语，不写实现细节。
 - `.codex/engineering-workflow/adr/` 只记录难逆转、反直觉、有真实权衡的决策。
 - `.codex/engineering-workflow/project/out-of-scope.md` 记录已明确拒绝或容易反复误提的方案。
-- 如果项目要求英文主文档，`.codex/engineering-workflow/project/issue-workflow.md` 应记录英文主文档和中文 review 辅助说明的路径约定。
+- 如果项目要求英文主文档，`.codex/engineering-workflow/project/issue-workflow.md` 应记录英文主文档、会触发 review aid 的 artifact 类型、中文 review 辅助说明路径约定，以及 duplicate translated report 规则是否影响 `.codex` review aid。
 - `.codex/engineering-workflow/` 默认是 agent 工作产物，不主动纳入 git；如用户要求共享其中部分文件，先说明纳入原因和 ignore 状态。
 
 ### 4. 契约变更回写

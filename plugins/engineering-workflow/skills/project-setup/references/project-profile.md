@@ -36,7 +36,9 @@
 
 - 默认响应语言：
 - 主文档语言规则：
+- 英文主文档触发类型：
 - 中文 review 辅助说明位置：
+- duplicate translated report / bilingual protocol 规则：
 - 是否需要 issue/design/plan：
 - 轻量任务定义：
 - 高风险任务定义：

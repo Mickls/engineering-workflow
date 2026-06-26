@@ -5,6 +5,7 @@
 - 默认使用中文回复，技术名词、命令、代码标识符保留英文。
 - 除非用户或项目规则明确要求其他语言，skill 运行时产出的中间文档、需求草稿、design/plan、项目上下文、handoff、报告、诊断记录、原型说明和最终交付说明，正文、标题、表格列名和状态解释都默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
 - 如果项目规则要求主文档使用英文，agent 必须尊重英文主文档，不得擅自改成中文；对于需要用户 review 的非轻量英文文档，应在 `.codex/engineering-workflow/` 下生成或更新对应中文 review 辅助说明，明确英文主文档是权威来源，中文说明只用于理解和 review。
+- 上一条不只适用于 `design.md` / `plan.md`。凡是项目自定义的英文 durable artifact，例如 exploration note、runbook、checklist、report、ADR、protocol、story、support content 或类似需要用户 review 的文档，都适用中文 review 辅助说明规则。
 - 先理解需求和现有实现，再修改代码；不要在未对齐需求前直接编码。
 - 优先遵循当前仓库已有架构、命名、目录、测试和错误处理风格。
 - 不做无关重构，不扩大需求范围，不擅自回滚或覆盖用户已有改动。
@@ -26,6 +27,7 @@
 
 - skill 运行时产出的中间文档、需求草稿、原型、handoff、报告、诊断记录等，默认放在目标仓库 `.codex/engineering-workflow/` 下，不放在仓库主目录。
 - 英文主文档的中文 review 辅助说明默认放在对应 issue 目录，或 `.codex/engineering-workflow/review-notes/`；不得把辅助说明写到生产文档目录，除非用户明确要求。
+- 放在 `.codex/engineering-workflow/` 下的中文 review 辅助说明不是 duplicate translated report、不是 bilingual protocol variant，也不是新的权威来源；如果更近的项目规则禁止重复翻译报告，这条限制不应阻止 `.codex` review aid，除非项目或用户明确禁止任何中文辅助文件。
 - `.codex/engineering-workflow/` 默认视为 agent 工作产物，不主动纳入 git；除非用户明确要求，不使用 `git add -f` 纳入 ignored 文件，也不为了纳入这些产物修改 ignore 规则。
 
 ## 4. Skill 路由

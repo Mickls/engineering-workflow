@@ -32,10 +32,12 @@ description: "用于声明任务完成前、代码或文档修改后、提交前
 如果本次任务创建或更新了英文主文档，并且该文档需要用户 review：
 
 - 确认英文主文档是用户或项目规则要求的权威来源。
+- 确认触发范围不限于 `design.md` / `plan.md`，也包括项目自定义的 exploration note、runbook、checklist、report、ADR、protocol、story、support content 或类似 durable artifact。
 - 确认对应中文 review 辅助说明已创建或同步更新到 `.codex/engineering-workflow/` 下的约定位置。
 - 中文辅助说明必须记录英文源文件路径、`source_commit` 或更新时间、生成时间，以及“英文主文档为准”的声明。
 - 中文辅助说明应覆盖摘要、关键决策、关键约束、风险、待确认问题和 review 建议，而不是把英文主文档复制成另一份权威文档。
-- 如果无法生成或同步中文辅助说明，最终回复必须说明原因、受影响文件和 review 风险。
+- 如果最终回复要求用户 review 英文主文档，必须同时列出中文 review 辅助说明路径；如果无法生成或同步中文辅助说明，最终回复必须说明原因、受影响文件和 review 风险。
+- 如果项目禁止 duplicate translated reports 或 bilingual protocol variants，确认中文辅助说明写在 `.codex/engineering-workflow/`，且没有污染生产 artifact 目录；这类 `.codex` review aid 不视为 duplicate translated report，除非项目或用户明确禁止任何中文辅助文件。
 
 ## 需求覆盖核销
 
