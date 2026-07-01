@@ -86,6 +86,23 @@ description: "用于声明任务完成前、代码或文档修改后、提交前
 - 如果项目存在当前工作产物根目录下 `project/contracts.md`，必须说明是否读取，以及哪些契约影响了本次判断。
 - 未完成防御式代码审查时，不得声称代码改动已完成。
 
+## 最小正确实现检查
+
+如果本次改动涉及代码、测试、脚本、依赖、配置、skill 规则或项目 workflow，应在交付前检查是否新增了不必要复杂度：
+
+- 新增依赖、版本升级、replace / override / resolution。
+- 新增抽象、interface、factory、strategy、wrapper、adapter、service 层或目录结构。
+- 新增配置项、feature flag、扩展点、模板字段或中间类型。
+- 手写标准库、框架、数据库、浏览器或平台 native feature 已覆盖的能力。
+- 为内部 helper 堆叠测试，而不是从稳定入口证明行为。
+
+交付要求：
+
+- 对每个新增复杂度候选，说明为什么项目已有能力、标准库、框架/native feature 或已安装依赖不足。
+- 仅为 speculative flexibility 存在的候选应删除、内联，或降级为 design/plan 中的 `defer-with-trigger` / `out-of-scope`。
+- 最小正确实现不能删除或弱化 trust boundary validation、错误处理、数据一致性、安全、accessibility、硬件或真实环境校准、用户明确要求和必要验证。
+- 非轻量任务最终回复需要简要说明最小正确实现检查结果；纯文档小改可合并到修改摘要和验证说明中。
+
 ## lint
 
 编码后运行项目对应的 lint。

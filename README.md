@@ -7,9 +7,11 @@
 - `plugins/engineering-workflow`：Codex plugin，内含项目初始化、需求、普通诊断、线上问题排查、原型、需求拆分、架构审查、通用编码、测试、工程交接、验证交付等 skills。
 - `.agents/plugins/marketplace.json`：本目录自带的本地 marketplace。
 
-核心约束包括：项目上下文初始化、领域术语和 ADR 沉淀、需求关键约束覆盖表、plan 需求覆盖矩阵、实现回填、测试覆盖核销、反馈循环优先的诊断流程和交付前验证核销，用于减少 design/plan 写清楚但实现遗漏边界的情况。
+核心约束包括：项目上下文初始化、领域术语和 ADR 沉淀、需求关键约束覆盖表、plan 需求覆盖矩阵、实现回填、测试覆盖核销、反馈循环优先的诊断流程、最小正确实现检查和交付前验证核销，用于减少 design/plan 写清楚但实现遗漏边界，或 agent 为简单需求过度造抽象、依赖和自定义实现的情况。
 
 项目初始化会记录工作产物根目录下的 `project/contracts.md`，用于沉淀当前项目语言、框架、接口校验、输入标准化和依赖保证。后续实现应遵从这些项目契约，避免在内部逻辑重复写字符串标准化、空值/空内容判断、依赖存在性判断或无证据默认值兜底。
+
+编码流程默认追求“最小正确实现”：先判断需求是否必须构建，再优先复用项目已有能力、标准库、框架或平台原生能力和已安装依赖，最后才写最小必要的自定义代码。这个原则不依赖 Ponytail 插件、hook 或 mode，也不替代需求确认、完整功能闭环、trust boundary validation、安全、错误处理、accessibility、测试和交付验证门禁。
 
 工作产物目录通过路由决定：如果运行环境存在 Tolaria MCP 且有 active vault，工作流会优先在 Tolaria 中为当前代码项目创建或复用 project，并把需求文档、项目上下文、原型、handoff、报告和诊断记录写入该 project 的 `engineering-workflow/` 目录；如果 Tolaria 不存在、不可用或用户禁止使用，则回退到目标仓库的 `.codex/engineering-workflow/`，维持旧行为。
 

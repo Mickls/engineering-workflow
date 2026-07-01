@@ -27,6 +27,11 @@ description: "用于显式请求架构审查、模块深度评估、测试 seam 
 - 变更是否需要同时改很多无关位置。
 - 错误、事务、权限、状态机或副作用是否散落。
 - 测试是否只能测内部函数，无法从稳定入口证明行为。
+- 是否存在单实现 interface / factory / strategy、只做浅层转发的 wrapper / adapter / service，或为了未来可能变化而提前抽象。
+- 是否手写了标准库、框架、数据库、浏览器或平台 native feature 已经覆盖的能力。
+- 是否为一个调用点创建中间类型、DTO、目录、配置或依赖。
+- 是否新增依赖只替代几行稳定标准库或项目已有能力。
+- 测试是否为了内部 helper 堆叠，而不是从稳定入口证明用户行为。
 
 ## 输出
 
@@ -40,5 +45,7 @@ description: "用于显式请求架构审查、模块深度评估、测试 seam 
 - 预期收益：locality、leverage、testability。
 - 风险。
 - 推荐强度：strong / worth-exploring / speculative。
+
+对 over-engineering 候选，建议方向应说明可删除、可内联、可替换为标准库 / native feature / 已有能力，或需要等待第二个真实用例再抽象。
 
 不要在同一轮默认实施架构重构。用户选择候选项后，再进入 `requirements-workflow` 或 `issue-slicing`。
