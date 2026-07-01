@@ -91,6 +91,14 @@ scripts/validate-workflow.sh
 
 该脚本检查 plugin JSON、marketplace JSON、skill frontmatter、`agents/openai.yaml` 和 reference 链接。
 
+交付前可运行最小正确实现审计：
+
+```bash
+scripts/audit-minimal-correct.sh
+```
+
+该脚本扫描当前 diff 中新增依赖、抽象、wrapper、配置、模板字段和疑似 hand-rolled native / stdlib 能力等候选。它是启发式审计，默认只报告候选并返回 0，不替代 lint/test/build、需求覆盖核销或人工判断。安装后的 plugin 会同时携带 `scripts/audit-minimal-correct.sh`，业务项目没有本地同名脚本时可由 agent 从 plugin root 调用。
+
 ## 常见问题
 
 ### `hitl-loop.template.sh` 是什么？
@@ -111,9 +119,12 @@ global/AGENTS.md
 .agents/plugins/marketplace.json
 scripts/validate-workflow.sh
 scripts/validate-workflow.py
-scripts/audit-defensive-code.sh
+scripts/audit-minimal-correct.sh
+scripts/check-workflow-rule-sync.py
 plugins/engineering-workflow/
   .codex-plugin/plugin.json
+  scripts/
+    audit-minimal-correct.sh
   skills/
     project-setup/
     requirements-workflow/

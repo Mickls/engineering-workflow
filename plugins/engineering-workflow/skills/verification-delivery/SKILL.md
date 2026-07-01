@@ -96,12 +96,27 @@ description: "用于声明任务完成前、代码或文档修改后、提交前
 - 手写标准库、框架、数据库、浏览器或平台 native feature 已覆盖的能力。
 - 为内部 helper 堆叠测试，而不是从稳定入口证明行为。
 
+非轻量或中高风险任务默认运行：
+
+```bash
+scripts/audit-minimal-correct.sh
+```
+
+该脚本随 plugin 打包在 `<plugin-root>/scripts/audit-minimal-correct.sh`。如果目标仓库存在同名脚本，优先使用目标仓库版本；否则使用当前 skill 所在 plugin root 的脚本绝对路径，工作目录仍保持为目标仓库根目录。
+
+如果只需要审计 staged diff，可运行：
+
+```bash
+scripts/audit-minimal-correct.sh --staged
+```
+
 交付要求：
 
 - 对每个新增复杂度候选，说明为什么项目已有能力、标准库、框架/native feature 或已安装依赖不足。
 - 仅为 speculative flexibility 存在的候选应删除、内联，或降级为 design/plan 中的 `defer-with-trigger` / `out-of-scope`。
 - 最小正确实现不能删除或弱化 trust boundary validation、错误处理、数据一致性、安全、accessibility、硬件或真实环境校准、用户明确要求和必要验证。
 - 非轻量任务最终回复需要简要说明最小正确实现检查结果；纯文档小改可合并到修改摘要和验证说明中。
+- 如果脚本不适用，说明原因；如果脚本输出 `info` / `warn` 候选，说明采纳、保留或不适用理由。该脚本是启发式审计，不替代 lint/test/build、需求覆盖核销或人工判断。
 
 ## lint
 

@@ -12,3 +12,6 @@ python3 -m json.tool "$ROOT/.agents/plugins/marketplace.json" >/dev/null
 ruby -e 'require "yaml"; Dir["plugins/engineering-workflow/skills/*/agents/openai.yaml"].sort.each { |f| YAML.load_file(f); puts "ok #{f}" }'
 
 python3 "$ROOT/scripts/validate-workflow.py"
+python3 "$ROOT/scripts/check-workflow-rule-sync.py"
+"$ROOT/scripts/audit-minimal-correct.sh" --help >/dev/null
+"$PLUGIN/scripts/audit-minimal-correct.sh" --help >/dev/null
