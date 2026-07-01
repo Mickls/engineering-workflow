@@ -9,13 +9,13 @@
 
 核心约束包括：项目上下文初始化、领域术语和 ADR 沉淀、需求关键约束覆盖表、plan 需求覆盖矩阵、实现回填、测试覆盖核销、反馈循环优先的诊断流程和交付前验证核销，用于减少 design/plan 写清楚但实现遗漏边界的情况。
 
-项目初始化会记录 `.codex/engineering-workflow/project/contracts.md`，用于沉淀当前项目语言、框架、接口校验、输入标准化和依赖保证。后续实现应遵从这些项目契约，避免在内部逻辑重复写字符串标准化、空值/空内容判断、依赖存在性判断或无证据默认值兜底。
+项目初始化会记录工作产物根目录下的 `project/contracts.md`，用于沉淀当前项目语言、框架、接口校验、输入标准化和依赖保证。后续实现应遵从这些项目契约，避免在内部逻辑重复写字符串标准化、空值/空内容判断、依赖存在性判断或无证据默认值兜底。
 
-默认工作产物目录为目标仓库的 `.codex/engineering-workflow/`。需求文档、项目上下文、原型、handoff、报告和诊断记录默认写入该目录，不放在项目主目录。
+工作产物目录通过路由决定：如果运行环境存在 Tolaria MCP 且有 active vault，工作流会优先在 Tolaria 中为当前代码项目创建或复用 project，并把需求文档、项目上下文、原型、handoff、报告和诊断记录写入该 project 的 `engineering-workflow/` 目录；如果 Tolaria 不存在、不可用或用户禁止使用，则回退到目标仓库的 `.codex/engineering-workflow/`，维持旧行为。
 
 除非用户或项目规则明确要求其他语言，工作流生成的回复和落盘工作产物正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
 
-如果项目要求主文档使用英文，英文主文档保持权威来源；对于需要用户 review 的非轻量英文文档，工作流会在 `.codex/engineering-workflow/` 下生成中文 review 辅助说明，默认放在对应 issue 目录或 `.codex/engineering-workflow/review-notes/`，用于解释摘要、关键决策、风险和待确认问题。该规则不只适用于 design/plan，也适用于项目自定义的 exploration note、runbook、checklist、report、ADR、protocol、story、support content 等 durable artifacts；`.codex` 下的中文 review aid 不视为 duplicate translated report。
+如果项目要求主文档使用英文，英文主文档保持权威来源；对于需要用户 review 的非轻量英文文档，工作流会在工作产物根目录下生成中文 review 辅助说明，默认放在对应 issue 目录或 `review-notes/`，用于解释摘要、关键决策、风险和待确认问题。该规则不只适用于 design/plan，也适用于项目自定义的 exploration note、runbook、checklist、report、ADR、protocol、story、support content 等 durable artifacts；工作产物根目录下的中文 review aid 不视为 duplicate translated report。
 
 ## 维护原则
 
@@ -28,10 +28,18 @@
 
 ## 工作产物目录
 
-`engineering-workflow` skills 默认把中间产物写入：
+`engineering-workflow` skills 写入中间产物前先确定工作产物根目录：
+
+1. 用户或项目规则明确指定的位置。
+2. Tolaria MCP 可用且存在 active vault 时，在 Tolaria vault 中创建或复用当前项目的 project，例如 `Projects/<project-slug>/engineering-workflow/`。
+3. Tolaria 不可用时，回退到目标仓库 `.codex/engineering-workflow/`。
+
+`<artifact-root>` 是占位符，表示按上述路由解析后的当前工作产物根目录，不是实际目录名。
+
+工作产物根目录内的结构为：
 
 ```text
-.codex/engineering-workflow/
+<artifact-root>/
   issues/
   project/
   context.md
@@ -44,7 +52,7 @@
   review-notes/
 ```
 
-这些文件默认用于当前 agent 协作和用户 review，不属于生产代码。除非用户明确要求共享某些文件，否则不要把 `.codex/engineering-workflow/` 强行加入 git。
+这些文件默认用于当前 agent 协作和用户 review，不属于生产代码。Tolaria 路径通过 Tolaria 管理；回退到 `.codex/engineering-workflow/` 时，除非用户明确要求共享某些文件，否则不要把该目录强行加入 git。
 
 ## 安装
 

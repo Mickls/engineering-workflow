@@ -34,6 +34,6 @@
 
 - 不逐字翻译英文主文档，不复制成第二份权威文档。
 - 必须明确英文源文件路径和“英文源文件为准”。
-- 如果项目规则禁止 duplicate translated reports 或 bilingual protocol variants，本文件仍应作为 `.codex/engineering-workflow/` 下的 review aid 生成；它不是重复报告，也不进入生产文档目录。
+- 如果项目规则禁止 duplicate translated reports 或 bilingual protocol variants，本文件仍应作为当前工作产物根目录下的 review aid 生成；它不是重复报告，也不进入生产文档目录。
 - 重点解释背景、结论、关键约束、风险、待确认问题和用户需要 review 的点。
 - 英文主文档更新后，必须检查本说明是否过期；无法同步时，在最终回复中说明风险。

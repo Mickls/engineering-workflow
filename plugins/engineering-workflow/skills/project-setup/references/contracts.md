@@ -1,6 +1,6 @@
 # 项目契约模板
 
-`.codex/engineering-workflow/project/contracts.md` 用于记录当前项目已经由语言、框架、入口定义、依赖注入、模块系统、generated code 或 fixture 保证的工程契约。它不是通用教程，也不是愿望清单；每条保证都要有证据位置。
+`<artifact-root>/project/contracts.md` 用于记录当前项目已经由语言、框架、入口定义、依赖注入、模块系统、generated code 或 fixture 保证的工程契约。它不是通用教程，也不是愿望清单；每条保证都要有证据位置。
 
 ```md
 # 项目契约

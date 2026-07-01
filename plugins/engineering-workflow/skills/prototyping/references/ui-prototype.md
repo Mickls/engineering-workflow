@@ -6,8 +6,8 @@
 
 ## 形态
 
-- 独立 UI 需求优先遵循 `requirements-workflow`：创建静态 HTML 到 `.codex/engineering-workflow/issues/<REQ-or-EPIC>/prototype.html`。
-- 非 issue 绑定的探索性原型默认放到 `.codex/engineering-workflow/prototypes/`。
+- 独立 UI 需求优先遵循 `requirements-workflow`：创建静态 HTML 到 `<artifact-root>/issues/<REQ-or-EPIC>/prototype.html`。
+- 非 issue 绑定的探索性原型默认放到 `<artifact-root>/prototypes/`。
 - 只有项目已有 Storybook、playground、demo app、scratch route 或明确临时目录时，才可以嵌入现有环境判断真实密度和上下文。
 - 不得把原型放入生产页面、生产路由或需要上线的代码路径；不得触发生产级 lint/test/build 循环。
 - 可以生成多个差异明显的方案，但默认 2-3 个即可。

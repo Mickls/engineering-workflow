@@ -1,4 +1,4 @@
 interface:
   display_name: "Prototyping"
   short_description: "正式实现前验证 UI、状态机、业务规则、数据模型或 API 形状"
-  default_prompt: "按原型工作流处理这个需求：先明确原型要回答的问题，再选择 UI 或 logic 分支；原型默认写入 .codex/engineering-workflow/prototypes 或对应 issue 目录，不进入生产路径，也不触发反复 review/fix 循环。除非用户或项目规则明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。"
+  default_prompt: "按原型工作流处理这个需求：先明确原型要回答的问题，再选择 UI 或 logic 分支；原型默认写入当前工作产物根目录的 prototypes 或对应 issue 目录，不进入生产路径，也不触发反复 review/fix 循环。工作产物根目录由 project-setup 路由决定，Tolaria MCP 可用时优先使用 Tolaria project，失败时回退到 .codex/engineering-workflow。除非用户或项目规则明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。"

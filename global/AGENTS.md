@@ -4,7 +4,7 @@
 
 - 默认使用中文回复，技术名词、命令、代码标识符保留英文。
 - 除非用户或项目规则明确要求其他语言，skill 运行时产出的中间文档、需求草稿、design/plan、项目上下文、handoff、报告、诊断记录、原型说明和最终交付说明，正文、标题、表格列名和状态解释都默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
-- 如果项目规则要求主文档使用英文，agent 必须尊重英文主文档，不得擅自改成中文；对于需要用户 review 的非轻量英文文档，应在 `.codex/engineering-workflow/` 下生成或更新对应中文 review 辅助说明，明确英文主文档是权威来源，中文说明只用于理解和 review。
+- 如果项目规则要求主文档使用英文，agent 必须尊重英文主文档，不得擅自改成中文；对于需要用户 review 的非轻量英文文档，应在当前工作产物根目录下生成或更新对应中文 review 辅助说明，明确英文主文档是权威来源，中文说明只用于理解和 review。
 - 上一条不只适用于 `design.md` / `plan.md`。凡是项目自定义的英文 durable artifact，例如 exploration note、runbook、checklist、report、ADR、protocol、story、support content 或类似需要用户 review 的文档，都适用中文 review 辅助说明规则。
 - 先理解需求和现有实现，再修改代码；不要在未对齐需求前直接编码。
 - 优先遵循当前仓库已有架构、命名、目录、测试和错误处理风格。
@@ -25,10 +25,16 @@
 
 ## 3. 工作产物边界
 
-- skill 运行时产出的中间文档、需求草稿、原型、handoff、报告、诊断记录等，默认放在目标仓库 `.codex/engineering-workflow/` 下，不放在仓库主目录。
-- 英文主文档的中文 review 辅助说明默认放在对应 issue 目录，或 `.codex/engineering-workflow/review-notes/`；不得把辅助说明写到生产文档目录，除非用户明确要求。
-- 放在 `.codex/engineering-workflow/` 下的中文 review 辅助说明不是 duplicate translated report、不是 bilingual protocol variant，也不是新的权威来源；如果更近的项目规则禁止重复翻译报告，这条限制不应阻止 `.codex` review aid，除非项目或用户明确禁止任何中文辅助文件。
-- `.codex/engineering-workflow/` 默认视为 agent 工作产物，不主动纳入 git；除非用户明确要求，不使用 `git add -f` 纳入 ignored 文件，也不为了纳入这些产物修改 ignore 规则。
+- 写入 skill 运行时产出的中间文档、需求草稿、原型、handoff、报告、诊断记录、项目上下文和 review aid 前，先确定“当前工作产物根目录”。
+- 工作产物根目录优先级：
+  1. 用户或更近项目规则明确指定的位置。
+  2. 如果可通过 `tool_search` 发现 Tolaria MCP 服务器，并且 Tolaria `list_vaults` 工具返回至少一个 active vault，则在 Tolaria vault 中为当前代码项目创建或复用对应 project，使用该 project 下的 `engineering-workflow/` 目录作为工作产物根目录。
+  3. Tolaria MCP 不存在、无 active vault、MCP 调用失败或用户禁止使用 Tolaria 时，回退到目标仓库 `.codex/engineering-workflow/`，维持旧行为。
+- `<artifact-root>` 是文档中的占位符，表示按上述路由解析后的当前工作产物根目录，不是实际目录名。
+- Tolaria project 默认按当前仓库名或用户项目名生成可读目录，例如 `Projects/<project-slug>/engineering-workflow/`；首次使用时创建 project 索引 note，记录源仓库路径、创建时间、工作产物根目录和 fallback 规则。多个 vault 可用且无法判断时，使用 Tolaria 返回的默认/第一个 active vault，并在项目上下文中记录选择；如果写入位置会离开 active vault 或目标仓库，必须先让用户确认。
+- 英文主文档的中文 review 辅助说明默认放在对应 issue 目录，或工作产物根目录的 `review-notes/`；不得把辅助说明写到生产文档目录，除非用户明确要求。
+- 放在工作产物根目录下的中文 review 辅助说明不是 duplicate translated report、不是 bilingual protocol variant，也不是新的权威来源；如果更近的项目规则禁止重复翻译报告，这条限制不应阻止工作产物 review aid，除非项目或用户明确禁止任何中文辅助文件。
+- 工作产物根目录默认视为 agent 工作产物，不主动纳入 git；当回退到 `.codex/engineering-workflow/` 时，除非用户明确要求，不使用 `git add -f` 纳入 ignored 文件，也不为了纳入这些产物修改 ignore 规则。
 
 ## 4. Skill 路由
 
@@ -55,8 +61,8 @@
 使用规则：
 
 - 非轻量编码任务开始前，必须先判断并加载 `requirements-workflow`；进入实现阶段时加载 `coding-standards`。
-- 首次进入复杂项目、非轻量任务发现 `.codex/engineering-workflow/project/*` 缺失、项目上下文缺少 freshness 元数据、或当前任务命中已记录 `watch_patterns` / `known_gaps` 时，必须先使用 `project-setup` 的 bootstrap / refresh / targeted-refresh 建立或刷新项目上下文。
-- `.codex/engineering-workflow/` 默认是 agent 工作产物；非轻量任务需要的项目上下文可默认创建或更新。只有写入非默认位置、改变项目已有目录约定、选择外部 issue tracker、做状态映射、多上下文结构或纳入 git 时，才需要先让用户确认。
+- 首次进入复杂项目、非轻量任务发现当前工作产物根目录下 `project/*` 缺失、项目上下文缺少 freshness 元数据、或当前任务命中已记录 `watch_patterns` / `known_gaps` 时，必须先使用 `project-setup` 的 bootstrap / refresh / targeted-refresh 建立或刷新项目上下文。
+- 当前工作产物根目录默认是 agent 工作产物；非轻量任务需要的项目上下文可默认创建或更新。只有写入用户未授权的非默认位置、改变项目已有目录约定、选择外部 issue tracker、做状态映射、多上下文结构或纳入 git 时，才需要先让用户确认。
 - 普通 bug 和失败测试先用 `diagnosis-workflow` 建立反馈循环；线上事故、数据误删、幂等、并发和重复调用问题必须使用 `incident-debugging`。
 - 线上问题、生产 bugfix、数据误删、重复调用、幂等性或并发问题，未从真实入口复现并证明根因前，不得修改生产逻辑或宣称已修复。
 - 独立 UI、复杂状态机、业务规则或数据模型在正式实现前可使用 `prototyping`；原型是临时验证手段，不是生产实现。
@@ -73,7 +79,7 @@
 - 新增型需求必须查阅相关模块，理解用户术语在当前项目中的含义，并参考相似实现。
 - 非轻量需求创建或更新 design/plan 前，必须完成 context readiness 检查；关键上下文缺失时先 bootstrap，过期或不覆盖当前模块时先 targeted refresh。
 - 除非用户明确要求 MVP、最小实现或临时方案，需求设计和计划必须按完整功能闭环展开；分阶段交付不能默认缩减最终范围。
-- 非轻量需求默认按 `requirements-workflow` 在 `.codex/engineering-workflow/issues/` 创建或维护 `design.md` / `plan.md`，并提炼关键约束覆盖表和需求覆盖矩阵。
+- 非轻量需求默认按 `requirements-workflow` 在当前工作产物根目录的 `issues/` 创建或维护 `design.md` / `plan.md`，并提炼关键约束覆盖表和需求覆盖矩阵。
 - 这是硬门禁：非轻量需求创建或更新 `design.md` / `plan.md` 后，必须停止当前回合并请用户 review；确认必须来自后续用户消息。确认前不得编码、写测试、生成 migration/proto 或安排实现类工作。
 - 独立需求如果包含 UI 相关改动，确认 design/plan 前必须生成静态 HTML 原型，并与文档一起交给用户 review；原型只做有限自检，不默认触发子 agent review 或反复修正循环。
 - “用户明确要求直接修改/不写文档”不等于轻量任务。非轻量但跳过 issue 文档时，仍必须在回复或临时计划中列出最小关键约束、实现落点、验证入口，并在交付前逐条核销。
@@ -89,18 +95,16 @@
 - 测试设计必须按关键约束覆盖矩阵核销行为；一个高价值链路测试可以覆盖多个约束，但不能用“测了相关函数”替代指定约束的可观察断言。
 - 测试失败后，不允许立刻按失败表象修改逻辑代码；先按 `testing-policy` 调查调用链、重构影响和测试本身是否仍能证明目标行为。
 
-## 7. 子 Agent 边界
+## 7. Codex Runtime 边界
 
-- 本文件表达用户对工程任务默认使用 Codex 原生子代理能力的长期偏好：除非用户在当前任务中明确禁止，主线程应优先考虑通过子 agent 做并行调查、分工实现或交叉 review。
-- 子 agent 的创建、等待、关闭、恢复、上下文压缩和生命周期管理，完全遵循当前 Codex runtime 和工具说明；本工作流不定义或覆盖这些行为。
-- 如果当前工具规则仍要求本轮显式授权，以工具规则为准，并向用户说明无法默认开启的原因。
-- 如果任务轻量、强耦合、写入范围冲突或子 agent 工具不可用，可以不使用子 agent，但需要在计划或交付中说明原因。
+- 本工作流不创建、维护或要求 `subagents.md`，也不把子 agent 生命周期写成项目工作产物。
+- 子 agent 的创建、等待、关闭、恢复、上下文压缩和生命周期管理完全交给当前 Codex runtime 和工具说明；工程化 skills 只记录工程事实、约束、验证和风险。
 - 如果实际使用了子 agent，最终回复只需按当前工具可获得的信息如实说明其状态和剩余风险。
 
 ## 8. 验证和交付
 
 - 完成编码后必须执行项目对应 lint；全项目 lint 成本过高时，可以只检查改动文件或受影响 package，但必须说明范围。
-- 如果本次修改改变了入口、schema、validation、DI/bootstrap、命令、CI、领域术语或核心业务边界，交付前必须回写或刷新 `.codex/engineering-workflow/project/*`；用户禁止写入时说明未刷新风险。
+- 如果本次修改改变了入口、schema、validation、DI/bootstrap、命令、CI、领域术语或核心业务边界，交付前必须回写或刷新当前工作产物根目录下的 `project/*`；用户禁止写入时说明未刷新风险。
 - 需要运行与本次改动相关的测试；无法运行时必须说明原因和剩余风险。
 - 不声称“完成”“通过”“已修复”，除非刚刚运行过对应验证并确认结果。
 - 非轻量需求交付前必须核销关键约束覆盖矩阵；存在未验证或未解释的关键约束时，不得声称完成。
