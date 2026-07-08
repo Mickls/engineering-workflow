@@ -87,7 +87,7 @@ codex plugin add engineering-workflow@engineering-workflow
 scripts/validate-workflow.sh
 ```
 
-该脚本检查 plugin JSON、marketplace JSON、skill frontmatter、`agents/openai.yaml` 和 reference 链接。
+该脚本检查 plugin JSON、marketplace JSON、skill frontmatter、`agents/openai.yaml`、reference 链接，以及 `SKILL.md` 入口文件是否保持轻量。
 
 交付前可运行最小正确实现审计：
 

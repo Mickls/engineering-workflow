@@ -6,6 +6,10 @@ import re
 import sys
 
 
+MAX_SKILL_MD_LINES = 100
+ALLOWED_FRONTMATTER_KEYS = {"name", "description"}
+
+
 def main() -> int:
     root = Path("plugins/engineering-workflow/skills")
     errors: list[str] = []
@@ -37,8 +41,18 @@ def validate_skill(skill_dir: Path, errors: list[str]) -> None:
         errors.append(f"{skill_dir}: missing agents/openai.yaml")
 
     text = skill_md.read_text(encoding="utf-8")
+    validate_skill_md_size(skill_md, text, errors)
     validate_frontmatter(skill_md, text, errors)
     validate_reference_links(skill_dir, skill_md, text, errors)
+
+
+def validate_skill_md_size(path: Path, text: str, errors: list[str]) -> None:
+    line_count = len(text.splitlines())
+    if line_count > MAX_SKILL_MD_LINES:
+        errors.append(
+            f"{path}: SKILL.md has {line_count} lines; keep entry files at "
+            f"{MAX_SKILL_MD_LINES} lines or less and move details to references/"
+        )
 
 
 def validate_frontmatter(path: Path, text: str, errors: list[str]) -> None:
@@ -52,6 +66,17 @@ def validate_frontmatter(path: Path, text: str, errors: list[str]) -> None:
         return
 
     frontmatter = text[4:end]
+    for line in frontmatter.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        match = re.match(r"^([A-Za-z0-9_-]+):", stripped)
+        if match and match.group(1) not in ALLOWED_FRONTMATTER_KEYS:
+            errors.append(
+                f"{path}: frontmatter key {match.group(1)!r} is not allowed; "
+                "use only name and description"
+            )
+
     if not re.search(r"^name:\s*.+", frontmatter, re.M):
         errors.append(f"{path}: frontmatter missing name")
     if not re.search(r"^description:\s*.+", frontmatter, re.M):
@@ -64,10 +89,25 @@ def validate_reference_links(
     text: str,
     errors: list[str],
 ) -> None:
+    linked_references = set()
     for match in re.finditer(r"\]\((references/[^)#]+)", text):
-        target = skill_dir / match.group(1)
+        reference_path = match.group(1)
+        linked_references.add(reference_path)
+        target = skill_dir / reference_path
         if not target.is_file():
-            errors.append(f"{skill_md}: missing referenced file {match.group(1)}")
+            errors.append(f"{skill_md}: missing referenced file {reference_path}")
+
+    references_dir = skill_dir / "references"
+    if not references_dir.is_dir():
+        return
+
+    for reference in sorted(references_dir.glob("*.md")):
+        reference_path = reference.relative_to(skill_dir).as_posix()
+        if reference_path not in linked_references:
+            errors.append(
+                f"{skill_md}: reference file {reference_path} is not linked "
+                "directly from SKILL.md"
+            )
 
 
 if __name__ == "__main__":

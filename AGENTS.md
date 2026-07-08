@@ -38,6 +38,15 @@
 4. 如果改动影响产物目录、安装方式或分享方式，同步更新 `README.md`。
 5. 如果新增 skill、reference 或校验规则，同步更新校验脚本或 README 内容列表。
 
+### Skill 编辑规范
+
+- `SKILL.md` 只作为入口文件，保留触发后必须立刻知道的目标、适用场景、硬门禁和 `references/` 路由。
+- 不把长 checklist、模板、状态解释、语言特化规则、细化流程、大段示例或背景说明继续堆进 `SKILL.md`；这些内容默认放入同一 skill 的 `references/`。
+- 新增或保留 `SKILL.md` 正文内容前，先判断它是否每次触发该 skill 都必须加载；如果只是特定分支、特定语言、特定文档或特定验证阶段才需要，必须下沉到 reference。
+- 每个 `references/*.md` 必须由同一 skill 的 `SKILL.md` 直接链接，并说明何时读取；不要创建隐藏 reference 或多级 reference 路由。
+- `SKILL.md` frontmatter 只允许 `name` 和 `description`；触发条件尽量放在 `description`，正文不重复写大段触发说明。
+- 单个 `SKILL.md` 超过 100 行视为入口膨胀，需要拆分或压缩，除非先调整校验脚本并说明原因。
+
 ## 5. 验证
 
 修改后至少运行：
