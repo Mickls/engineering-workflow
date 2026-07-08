@@ -23,7 +23,7 @@ description: "用于把过大的需求、PRD、design/plan 或执行计划拆成
 - 每个切片尽量经过完整调用链。
 - 每个切片完成后能被测试、演示或手动验证。
 - 每个切片必须关联需求覆盖矩阵中的约束 ID。
-- 拆分结果需要回写到 `<artifact-root>/issues/<REQ-or-EPIC>/plan.md`、`roadmap.md` 或对应需求记录，保持覆盖矩阵同步。
+- 拆分结果需要回写到 `.codex/engineering-workflow/issues/<REQ-or-EPIC>/plan.md`、`roadmap.md` 或对应需求记录，保持覆盖矩阵同步。
 - 高风险数据变更、migration、proto/schema 可作为支撑任务，但必须服务于某个垂直切片。
 - 不要把“写 DAO”“写 proto”“写测试”当成孤立交付，除非它们本身就是稳定 public contract 或基础设施任务。
 

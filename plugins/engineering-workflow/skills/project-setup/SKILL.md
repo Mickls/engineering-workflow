@@ -11,10 +11,10 @@ description: "用于为某个仓库初始化或更新工程协作上下文，包
 
 除非用户或项目规则明确要求其他语言，项目上下文文档、ADR、issue 约定、命令说明和风险说明的正文、标题、表格列名和状态解释都默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。若项目要求正式协作文档使用英文，需要在 `project-profile.md` 或 `issue-workflow.md` 记录该语言规则、会触发中文 review 辅助说明的 artifact 类型，以及中文 review 辅助说明的默认位置。
 
-写入前先确定“当前工作产物根目录”，再把 agent 工作产物写入该根目录：
+默认写入目标仓库的 agent 工作产物目录：
 
 ```text
-<artifact-root>/
+.codex/engineering-workflow/
   context.md
   context-map.md
   adr/
@@ -33,39 +33,23 @@ description: "用于为某个仓库初始化或更新工程协作上下文，包
   out-of-scope.md
 ```
 
-工作产物根目录按以下优先级确定：
-
-1. 用户或更近项目规则明确指定的位置。
-2. 如果可通过 `tool_search` 发现 Tolaria MCP 服务器，并且 Tolaria `list_vaults` 返回至少一个 active vault，则在 Tolaria vault 中为当前代码项目创建或复用对应 project，使用该 project 下的 `engineering-workflow/` 目录。
-3. Tolaria MCP 不存在、无 active vault、MCP 调用失败或用户禁止使用 Tolaria 时，回退到目标仓库 `.codex/engineering-workflow/`。
-
-`<artifact-root>` 是本文档中的占位符，表示按上述路由解析后的当前工作产物根目录，不是实际目录名。
-
-Tolaria project 规则：
-
-- project 名默认来自当前仓库名、用户项目名或已有项目上下文，生成可读且文件系统安全的 slug，例如 `engineering-workflow`。
-- 默认路径为 Tolaria active vault 内的 `Projects/<project-slug>/engineering-workflow/`。
-- 首次使用时创建 project 索引 note，例如 `Projects/<project-slug>/README.md` 或 `Projects/<project-slug>/engineering-workflow/README.md`，记录源仓库路径、创建时间、工作产物根目录、fallback 路径和关键文档入口。
-- 如果 Tolaria MCP 只有 `create_note` 但不能覆盖已有 note，已存在文档可通过 active vault 内的本地文件路径更新；不要写出 active vault。
-- 多个 active vault 且无法判断时，使用 Tolaria 返回的默认/第一个 active vault，并在 `project-profile.md` 和 `issue-workflow.md` 记录选择；如果写入位置会离开 active vault 或目标仓库，必须先让用户确认。
-
-如果仓库已有等价位置或用户指定其他目录，应沿用已有位置，不强行迁移；但需要说明偏离工作产物路由默认值的原因。
+如果仓库已有等价位置或用户指定其他目录，应沿用已有位置，不强行迁移；但需要说明偏离默认 `.codex/engineering-workflow/` 的原因。
 
 ## Context Readiness Gate
 
 非轻量需求、代码修改、测试设计和交付声明前，需要确认项目上下文处于可用状态。关键上下文包括：
 
-- `<artifact-root>/project/project-profile.md`
-- `<artifact-root>/project/commands.md`
-- `<artifact-root>/project/contracts.md`
-- `<artifact-root>/project/issue-workflow.md`
-- `<artifact-root>/context.md` 或 `<artifact-root>/context-map.md`
+- `.codex/engineering-workflow/project/project-profile.md`
+- `.codex/engineering-workflow/project/commands.md`
+- `.codex/engineering-workflow/project/contracts.md`
+- `.codex/engineering-workflow/project/issue-workflow.md`
+- `.codex/engineering-workflow/context.md` 或 `.codex/engineering-workflow/context-map.md`
 
-如果关键上下文缺失，默认运行 `bootstrap` 模式创建最小可用上下文；不需要因为 fallback `.codex/engineering-workflow/` 被 ignore 而询问用户。只有以下情况需要先确认：
+如果关键上下文缺失，默认运行 `bootstrap` 模式创建最小可用上下文；不需要因为 `.codex/engineering-workflow/` 被 ignore 而询问用户。只有以下情况需要先确认：
 
-- 用户明确禁止创建或更新工作产物根目录。
-- 需要写入用户未授权的非默认位置或改变项目已有目录约定。
-- 需要把 ignored 的 `.codex/engineering-workflow/` fallback 文件纳入 git。
+- 用户明确禁止创建或更新 `.codex/engineering-workflow/`。
+- 需要写入非默认位置或改变项目已有目录约定。
+- 需要把 ignored 的 `.codex/engineering-workflow/` 文件纳入 git。
 - 需要选择非默认 issue tracker、状态标签映射或多上下文结构。
 
 如果用户明确要求不创建上下文，仍要在回复、临时计划或 no-doc 约束清单中记录最小项目契约、证据来源和剩余风险。
@@ -120,11 +104,10 @@ Tolaria project 规则：
 先只读检查：
 
 - 根目录 `AGENTS.md`、`.codex/`、`docs/`、`issue/`、`.github/`、Makefile、package scripts、CI 配置。
-- 当前工作产物根目录下的 `project/`、`context.md`、`context-map.md`、`adr/` 是否存在。
+- `.codex/engineering-workflow/project/`、`.codex/engineering-workflow/context.md`、`.codex/engineering-workflow/context-map.md`、`.codex/engineering-workflow/adr/` 是否存在。
 - 旧位置 `docs/agents/`、`CONTEXT.md`、`CONTEXT-MAP.md`、`docs/adr/` 是否存在；如果已有且项目依赖它们，先说明迁移风险，不要擅自移动。
 - README、开发文档、测试文档、部署文档。
 - 当前仓库的 lint/test/build 命令和 integration 环境要求。
-- Tolaria MCP 是否可用；如果可用，读取 active vault 列表并确定工作产物根目录。
 - 当前项目语言、框架和入口契约：route/controller/handler/resolver/CLI/job、middleware、binding、schema、OpenAPI/proto、GraphQL、表单校验、依赖注入、模块系统、bootstrap、generated code 和测试 fixture。
 - 哪些输入已在边界完成 trim/strip/normalize、类型转换、必填/非空/枚举/范围/权限/租户/资源归属校验；哪些依赖已由构造函数、DI container、framework lifecycle、module provider 或 fixture 保证存在。
 - 哪些外部数据边界仍不安全：数据库旧数据、缓存、消息、文件、网络响应、反序列化、用户脚本、第三方回调等。
@@ -140,16 +123,16 @@ Tolaria project 规则：
 
 如果要改变已有目录约定，先获得用户确认。
 
-默认不要为了创建工作产物根目录而打断用户。只有存在真实决策点时才确认：
+默认不要为了创建 `.codex/engineering-workflow/` 工作产物而打断用户。只有存在真实决策点时才确认：
 
-- Issue tracker：当前工作产物根目录下的 `issues/`、GitHub、GitLab、Linear 或其他。
+- Issue tracker：本地 `.codex/engineering-workflow/issues/`、GitHub、GitLab、Linear 或其他。
 - 状态/标签词汇：`draft`、`reviewing`、`approved`、`doing`、`done`、`blocked`、`deferred` 是否需要映射到项目已有标签。
-- Domain docs：单上下文 `<artifact-root>/context.md`，还是多上下文 `<artifact-root>/context-map.md`。
+- Domain docs：单上下文 `.codex/engineering-workflow/context.md`，还是多上下文 `.codex/engineering-workflow/context-map.md`。
 - 非默认写入目录或是否纳入 git。
-- 英文主文档对应的中文 review 辅助说明是否需要放在默认 `<artifact-root>/review-notes/` 以外的位置。
-- 项目是否存在“禁止 duplicate translated reports / bilingual protocol variants”规则；如果存在，应记录工作产物 review aid 是否仍允许，以及禁止写入生产文档目录的边界。
+- 英文主文档对应的中文 review 辅助说明是否需要放在默认 `.codex/engineering-workflow/review-notes/` 以外的位置。
+- 项目是否存在“禁止 duplicate translated reports / bilingual protocol variants”规则；如果存在，应记录 `.codex` review aid 是否仍允许，以及禁止写入生产文档目录的边界。
 
-如果这些选择不阻塞当前任务，先按工作产物路由写入，并在文档中记录默认假设、Tolaria 探测结果和 fallback 路径。
+如果这些选择不阻塞当前任务，先按默认本地 `.codex/engineering-workflow/` 写入，并在文档中记录默认假设。
 
 ### 3. 写入项目上下文
 
@@ -167,14 +150,14 @@ Tolaria project 规则：
 - 不把项目上下文写成通用教程。
 - 不记录 secret、token、密码或隐私数据。
 - 每个 project 文档都要记录 freshness 元数据；如果某项无法获取，写 `unknown` 和原因。
-- `<artifact-root>/project/contracts.md` 记录当前项目可遵从的工程契约，不记录没有证据的猜测；每条“已保证”都必须写证据位置。
+- `.codex/engineering-workflow/project/contracts.md` 记录当前项目可遵从的工程契约，不记录没有证据的猜测；每条“已保证”都必须写证据位置。
 - 如果框架、接口定义或依赖注入已经保证输入完成标准化、非法值被拦截或依赖存在，内部实现原则上不得重复做同类 trim/strip/normalize、空值/空内容判断或依赖存在性判断。
 - 不确定的保证写入 `Still Unsafe Boundaries` 或待确认项，不要写成已生效契约。
-- `<artifact-root>/context.md` 只写领域术语，不写实现细节。
-- `<artifact-root>/adr/` 只记录难逆转、反直觉、有真实权衡的决策。
-- `<artifact-root>/project/out-of-scope.md` 记录已明确拒绝或容易反复误提的方案。
-- 如果项目要求英文主文档，`<artifact-root>/project/issue-workflow.md` 应记录英文主文档、会触发 review aid 的 artifact 类型、中文 review 辅助说明路径约定，以及 duplicate translated report 规则是否影响工作产物 review aid。
-- 工作产物根目录默认是 agent 工作产物，不主动纳入 git；fallback `.codex/engineering-workflow/` 被 ignore 时，如用户要求共享其中部分文件，先说明纳入原因和 ignore 状态。
+- `.codex/engineering-workflow/context.md` 只写领域术语，不写实现细节。
+- `.codex/engineering-workflow/adr/` 只记录难逆转、反直觉、有真实权衡的决策。
+- `.codex/engineering-workflow/project/out-of-scope.md` 记录已明确拒绝或容易反复误提的方案。
+- 如果项目要求英文主文档，`.codex/engineering-workflow/project/issue-workflow.md` 应记录英文主文档、会触发 review aid 的 artifact 类型、中文 review 辅助说明路径约定，以及 duplicate translated report 规则是否影响 `.codex` review aid。
+- `.codex/engineering-workflow/` 默认是 agent 工作产物，不主动纳入 git；如用户要求共享其中部分文件，先说明纳入原因和 ignore 状态。
 
 ### 4. 契约变更回写
 

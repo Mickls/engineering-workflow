@@ -17,9 +17,9 @@ description: "用于规划、编写、更新、运行或解释测试；处理测
 
 规划、编写或解释非轻量测试前，先读取项目上下文：
 
-- 当前工作产物根目录下的 `project/commands.md`：lint/test/build/typecheck 命令、适用范围、环境要求和不稳定测试。
-- 当前工作产物根目录下的 `project/contracts.md`：输入标准化、validation 边界、依赖保证、fixture 保证和仍不安全边界。
-- 当前工作产物根目录下的 `project/project-profile.md`、`context.md` 或 `context-map.md`：项目类型、模块边界和领域术语。
+- `.codex/engineering-workflow/project/commands.md`：lint/test/build/typecheck 命令、适用范围、环境要求和不稳定测试。
+- `.codex/engineering-workflow/project/contracts.md`：输入标准化、validation 边界、依赖保证、fixture 保证和仍不安全边界。
+- `.codex/engineering-workflow/project/project-profile.md`、`context.md` 或 `context-map.md`：项目类型、模块边界和领域术语。
 
 如果这些上下文缺失、freshness 元数据缺失、当前测试涉及的 package/module/fixture 不在 `scan_scope` 中，或 package/build/test/CI 配置命中 `watch_patterns`，先使用 `project-setup bootstrap` 或 `targeted-refresh`。用户禁止写入时，在测试计划或结果汇报中记录临时命令来源、契约证据和剩余风险。
 
@@ -75,7 +75,7 @@ description: "用于规划、编写、更新、运行或解释测试；处理测
 
 新增或修改测试前，必须先明确这个测试证明什么用户可见行为或稳定 contract。
 
-如果存在当前工作产物根目录 `issues/` 下的 `design.md` / `plan.md` 关键约束覆盖表，测试设计必须从这些约束出发，而不是从“改了哪个函数”出发。非轻量 no-doc 例外也必须从最小关键约束清单出发。
+如果存在 `.codex/engineering-workflow/issues/` 下的 `design.md` / `plan.md` 关键约束覆盖表，测试设计必须从这些约束出发，而不是从“改了哪个函数”出发。非轻量 no-doc 例外也必须从最小关键约束清单出发。
 
 高价值测试通常满足：
 
@@ -106,7 +106,7 @@ description: "用于规划、编写、更新、运行或解释测试；处理测
 
 清理重复防御式代码属于行为保持或契约收敛型重构。优先证明外部行为和项目契约，而不是为每个内部 guard 补低价值测试。
 
-清理前先读取并确认当前工作产物根目录下 `project/contracts.md` freshness，确认哪些输入标准化、validation 边界或依赖保证已经由项目契约覆盖。契约缺失或过期时，先 targeted refresh，或把相关保证降级为 `needs-evidence`。
+清理前先读取并确认 `.codex/engineering-workflow/project/contracts.md` freshness，确认哪些输入标准化、validation 边界或依赖保证已经由项目契约覆盖。契约缺失或过期时，先 targeted refresh，或把相关保证降级为 `needs-evidence`。
 
 验证策略：
 
@@ -125,7 +125,7 @@ description: "用于规划、编写、更新、运行或解释测试；处理测
 
 ## 测试覆盖矩阵门禁
 
-非轻量需求需要维护测试覆盖矩阵，可写在 `plan.md`、对应当前工作产物根目录 `issues/` 记录或 no-doc 临时测试计划段落中。
+非轻量需求需要维护测试覆盖矩阵，可写在 `plan.md`、对应 `.codex/engineering-workflow/issues/` 记录或 no-doc 临时测试计划段落中。
 
 推荐格式：
 

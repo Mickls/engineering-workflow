@@ -1,4 +1,4 @@
 interface:
   display_name: "Issue Slicing"
   short_description: "把大需求拆成可独立完成、可验证的垂直切片"
-  default_prompt: "按 issue slicing 流程把这个需求或计划拆成可独立完成和验证的垂直切片，标注依赖和覆盖约束，并准备回写到当前工作产物根目录 issues 下的 plan 或 roadmap。工作产物根目录由 project-setup 路由决定，Tolaria MCP 可用时优先使用 Tolaria project，失败时回退到 .codex/engineering-workflow。除非用户或项目规则明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。"
+  default_prompt: "按 issue slicing 流程把这个需求或计划拆成可独立完成和验证的垂直切片，标注依赖和覆盖约束，并准备回写到 .codex/engineering-workflow/issues 下的 plan 或 roadmap。除非用户或项目规则明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。"

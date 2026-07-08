@@ -10,7 +10,7 @@
 - 状态放内存。
 - 使用项目已有语言和运行方式。
 - 核心逻辑放在可移植的小模块中，TUI/CLI 只是壳。
-- 默认写入 `<artifact-root>/prototypes/`；如果绑定具体需求，写入对应 `<artifact-root>/issues/<REQ-or-EPIC>/`。
+- 默认写入 `.codex/engineering-workflow/prototypes/`；如果绑定具体需求，写入对应 `.codex/engineering-workflow/issues/<REQ-or-EPIC>/`。
 - 提供一条明确运行命令。
 
 ## 过程
