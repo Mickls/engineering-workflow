@@ -29,6 +29,8 @@
 - 实现仍符合已确认的 design/plan。
 - 关键约束覆盖矩阵中的每个 ID 都有实现落点或明确的不适用理由。
 - 已考虑完整调用链。
+- 已核销项目实现路径契约：统一实例化、DI/provider、generated code、schema/migration、事务边界、异步/手动生成流程没有被绕过。
+- 如果正确路径需要用户手工生成、迁移或部署，diff 停在 source/schema/provider 侧并明确 blocked/manual step，没有手改 generated output 来伪造完成。
 - 校验位于正确边界，且没有不必要的重复校验。
 - 新增防御式代码候选已有边界证据；存量清理候选已有 keep/remove/move/needs-evidence 分类。
 - 没有新增 silent fallback、吞错、无证据重试或降级；确需保留时已有业务契约和可观测信号。

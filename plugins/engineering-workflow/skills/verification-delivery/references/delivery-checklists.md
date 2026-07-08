@@ -20,6 +20,8 @@
 - 每个关键约束 ID 必须有测试、手动验证、代码审查证据，或明确不可验证原因和风险。
 - 高风险约束缺少验证证据时不得说“完成”或“已修复”。
 - 如果实现过程中发现 design/plan 漏了关键约束，先更新文档并说明，不得把新行为藏在代码里。
+- `architecture` 约束必须逐条核销：统一实例化、DI/provider、generated code、schema/migration、事务边界、异步/手动生成流程都要有 diff 证据或明确不适用证据。
+- 正确路径需要用户手工生成、迁移或部署时，只能把对应约束报告为 `blocked` / `manual-only`，并说明下一步；不得为了交付闭环手改 generated output、绕开 provider/DI、跳过 schema/migration 来源或隐藏手动步骤。
 
 ## 项目上下文
 
@@ -28,6 +30,7 @@
 - 是否读取了 `.codex/engineering-workflow/project/project-profile.md`、`commands.md`、`contracts.md`、`issue-workflow.md`、`context.md` 或 `context-map.md`。
 - 这些上下文是否包含 freshness 元数据，且 `scan_scope` 覆盖当前任务。
 - 本次 diff 是否触及入口、schema、validation、DI/bootstrap、module provider、generated code、package/build/test/CI 配置、领域术语或核心业务边界。
+- 本次 diff 是否触发统一实例化、DI/provider、generated code、schema/migration、事务、异步或手动生成流程契约；如触发，design/plan 或 no-doc 约束清单是否已有 `architecture` 约束。
 
 如果上下文缺失或 stale，且任务不是轻量只读，应在交付前使用 `project-setup bootstrap`、`refresh` 或 `targeted-refresh`。如果本次 diff 改变项目契约来源，必须回写对应 project 文档并刷新 metadata。
 

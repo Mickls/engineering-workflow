@@ -20,6 +20,8 @@
 
 如果涉及数据库、接口、消息、配置或外部依赖，必须讨论清楚，不能只写概念。
 
+如果涉及跨模块调用、统一实例化、DI/bootstrap、module provider、generated code、schema/migration、事务边界、异步/手动生成流程或项目层级边界，必须把适用项目契约写进关键约束覆盖表。每条契约要么成为约束 ID，要么在 design 中标记 `not-applicable` 并写证据；不得只在背景或 Context readiness 中笼统说明“遵循项目规范”。
+
 不要写“原本计划 / 上一版方案 / 后来改为 / 已废弃 / 曾考虑”等过程叙述，除非用户明确要求复盘。被否决方案如果未来容易误提，记录到 `.codex/engineering-workflow/project/out-of-scope.md`；难逆转且有真实权衡的技术决策记录到 ADR。
 
 ## 关键约束覆盖表
@@ -31,6 +33,7 @@
 - 自动流程和手动流程语义不同的地方。
 - existing / non-existing、empty / invalid、root 内外、include / exclude、sync / async、old / new config 等容易遗漏的分支。
 - 已由项目契约保证的输入标准化、空值/空内容拦截和依赖存在性保证。
+- 项目契约要求的实现路径，例如统一 DI/provider、constructor 注入、generated code 只改 source、schema/migration 手动流程、事务和异步边界。
 - `验收标准` 中每一条可观察行为。
 
 格式：
@@ -64,3 +67,5 @@
 ```
 
 如果某个实施步骤没有关联任何约束，检查它是否属于无关扩展。编码阶段需要回填实际代码落点、测试名、验证命令和状态；最终交付前不得留下未解释的 `planned` / `todo`。
+
+如果某个实施步骤会触发项目契约，例如修改 constructor/provider、wire/proto/ent/source schema、transaction helper、job/task、生成代码来源或统一实例化链路，`预计代码落点` 和 `测试/验证入口` 必须写明正确路径和手动阻塞点。正确路径需要用户手工生成时，计划状态应允许 `blocked` / `manual-only`，不能为了让当前工作树一次性编译而计划手改 generated output。

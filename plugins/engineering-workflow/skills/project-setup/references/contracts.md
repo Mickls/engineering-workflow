@@ -44,6 +44,15 @@
 | --- | --- | --- | --- |
 |  |  |  |  |
 
+## 实现路径契约
+
+| 契约 | 正确路径 | 禁止绕过方式 | 证据位置 |
+| --- | --- | --- | --- |
+| 统一实例化 / DI / provider |  |  |  |
+| generated code |  |  |  |
+| schema / migration / codegen |  |  |  |
+| 事务 / 异步边界 |  |  |  |
+
 ## 仍不安全的边界
 
 | 边界 | 不保证内容 | 需要本地校验的位置 | 原因 |
@@ -77,6 +86,8 @@
 - 如果请求参数已经在入口完成标准化，内部 service/use-case/domain 层不得重复做同类标准化。
 - 如果接口定义已经拦截空值或非法值，内部实现不得重复做同类空值、空内容或格式判断。
 - 如果依赖已由构造函数、DI container、module provider、framework lifecycle、generated code 或 fixture 保证存在，内部方法不得重复判断依赖是否存在。
+- `实现路径契约` 用于记录“必须怎么改”的项目边界，例如统一实例化、constructor/provider 注入、wire/proto/ent/source schema 的生成流程、migration 归属、事务入口和异步任务语义；这些契约在非轻量 design/plan 中必须转成 `architecture` 约束或明确不适用。
+- 正确路径需要用户手工运行 codegen、wire、migration、部署或外部操作时，写清允许 agent 修改的 source/schema/provider 文件、禁止手改的 generated output，以及交付时应报告的 blocked/manual step。
 - public/exported API、外部数据读取、反序列化、旧数据兼容、第三方回调、并发/lifecycle 边界仍可保留本地校验，但必须记录在 `Still Unsafe Boundaries` 或对应设计文档中。
 - 证据不足时不要写成“已保证”；写入 `Still Unsafe Boundaries` 或待确认项。
 - 如果 refresh 后发现旧保证不再成立，删除或降级对应保证，并在 `Refresh Notes` 记录原因。

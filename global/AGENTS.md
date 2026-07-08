@@ -78,6 +78,7 @@
 - 需求澄清时，能通过代码、测试或项目文档确认的事实应先自行查证；影响产品语义、实现路径、验收标准或取舍的决策必须交给用户确认。
 - 需要追问时一次只问一个问题，并给出推荐答案和取舍影响；在达成 shared understanding 或用户明确允许跳过前，不得进入实现。
 - 非轻量需求创建或更新 design/plan 前，必须完成 context readiness 检查；关键上下文缺失时先 bootstrap，过期或不覆盖当前模块时先 targeted refresh。
+- 非轻量需求如果涉及跨模块调用、统一实例化、DI/bootstrap、module provider、generated code、schema/migration、事务边界、异步/手动生成流程或项目层级边界，必须把适用项目契约纳入关键约束覆盖表；每条契约要么成为约束 ID，要么明确 `not-applicable` 及证据，不得只写成背景说明。
 - 除非用户明确要求 MVP、最小实现或临时方案，需求设计和计划必须按完整功能闭环展开；分阶段交付不能默认缩减最终范围。
 - 非轻量需求默认按 `requirements-workflow` 在 `.codex/engineering-workflow/issues/` 创建或维护 `design.md` / `plan.md`，并提炼关键约束覆盖表和需求覆盖矩阵。
 - 这是硬门禁：非轻量需求创建或更新 `design.md` / `plan.md` 后，必须停止当前回合并请用户 review；确认必须来自后续用户消息。确认前不得编码、写测试、生成 migration/proto 或安排实现类工作。
@@ -89,6 +90,7 @@
 
 - 编码遵循 `coding-standards`：最小正确实现、复用优先、校验放在调用链顶层、减少无意义中间类型、沿用项目风格。
 - 编码前必须确认项目契约和命令上下文可用且未明显过期；缺失或 stale 时先用 `project-setup` bootstrap/refresh，不得凭空假设上游已经完成标准化、validation 或依赖注入保证。
+- 编码前必须核销本次 diff 会触发的项目契约，尤其是统一实例化、DI/provider、generated code、schema/migration、事务、异步边界和手动生成流程；如果正确路径需要用户手工生成或迁移，必须停在 source/schema/provider 变更处并说明阻塞，不得手改 generated output 或绕开统一链路来让当前工作树临时通过。
 - 不得为隐藏错误新增 silent fallback；新增 fallback、重试、降级、默认值或容错路径时，必须有明确业务契约、边界证据和可观测信号。
 - 实现非轻量需求时，必须回填或核销关键约束覆盖矩阵；每个约束要有实现落点、验证证据或明确的不适用/阻塞理由。
 - 中高风险编码完成后必须做交叉审查风险判断；是否使用子 agent review 由主线程依据 Codex 原生能力、当前工具规则和任务风险决定，不由工程化 skill 定义。
@@ -108,6 +110,7 @@
 
 - 完成编码后必须执行项目对应 lint；全项目 lint 成本过高时，可以只检查改动文件或受影响 package，但必须说明范围。
 - 如果本次修改改变了入口、schema、validation、DI/bootstrap、命令、CI、领域术语或核心业务边界，交付前必须回写或刷新 `.codex/engineering-workflow/project/*`；用户禁止写入时说明未刷新风险。
+- 交付前必须对照项目契约审查最终 diff：不得存在绕过统一实例化、手改 generated output、跳过 schema/migration/codegen 真实来源、绕开 provider/DI、隐藏手动步骤或为了编译通过而改生成产物的情况；存在正确路径阻塞时，只能声明 blocked/manual step，不能宣称完整完成。
 - 需要运行与本次改动相关的测试；无法运行时必须说明原因和剩余风险。
 - 不声称“完成”“通过”“已修复”，除非刚刚运行过对应验证并确认结果。
 - 非轻量需求交付前必须核销关键约束覆盖矩阵；存在未验证或未解释的关键约束时，不得声称完成。

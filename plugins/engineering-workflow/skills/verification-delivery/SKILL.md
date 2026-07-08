@@ -27,6 +27,7 @@ description: "用于声明任务完成前、代码或文档修改后、提交前
 - no-doc 非轻量例外必须核销临时计划或回复中的最小关键约束清单。
 - 对数据删除、权限、安全、幂等、并发、兼容性、手动/自动语义分歧等高风险约束，缺少验证证据时不得说“完成”或“已修复”。
 - 如果本次 diff 改变入口、schema、validation、DI/bootstrap、命令、CI、领域术语或核心业务边界，交付前必须刷新 `.codex/engineering-workflow/project/*`，或说明用户禁止写入/无法刷新带来的风险。
+- 如果本次 diff 触发统一实例化、DI/provider、generated code、schema/migration、事务、异步或手动生成流程契约，交付前必须逐条核销对应 `architecture` 约束；正确路径需要用户手工生成、迁移或部署时，只能声明 `blocked` / `manual-only` 和下一步，不能手改生成产物或绕开统一链路后宣称完成。
 - 最小正确实现不能删除或弱化 trust boundary validation、错误处理、数据一致性、安全、accessibility、用户明确要求和必要验证；仅为 speculative flexibility 存在的候选应删除、内联，或降级为 design/plan 中的 `defer-with-trigger` / `out-of-scope`。
 
 细则见 [delivery-checklists.md](references/delivery-checklists.md)。
@@ -36,6 +37,7 @@ description: "用于声明任务完成前、代码或文档修改后、提交前
 如果本次改动涉及生产代码、测试代码或脚本，交付前检查：
 
 - 是否新增或清理了 `string-normalization`、`empty-check`、`dependency-guard`、`default-fallback`、`error-wrapping`、`logging` 等防御式代码候选。
+- 是否绕过统一实例化、DI/provider、generated code、schema/migration、事务边界、异步/手动生成流程等项目契约。
 - 是否新增依赖、抽象、wrapper、配置、模板字段、中间类型，或手写已有能力。
 - 非轻量或中高风险任务默认运行 `scripts/audit-minimal-correct.sh`。
 
