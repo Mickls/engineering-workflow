@@ -1,4 +1,4 @@
 interface:
   display_name: "Coding Standards"
   short_description: "通用编码规则、调用链校验、错误处理、数据库和依赖管理"
-  default_prompt: "按项目编码规范实现这个任务：先读取 .codex/engineering-workflow 下已确认的 design/plan 或 no-doc 最小关键约束清单，并检查 project/contracts.md、commands.md、project-profile.md 等上下文是否缺失或 stale；缺失时先 project-setup bootstrap，命中 watch_patterns、known_gaps 或超出 scan_scope 时先 targeted-refresh。编码前核销本次 diff 是否触发统一实例化、DI/provider、generated code、schema/migration、事务、异步或手动生成流程等 architecture 约束；触发时必须沿项目正确路径实现，不能手改 generated output、绕开 provider/DI 或为了临时编译通过隐藏手动步骤。追求最小正确实现：先确认是否必须构建，再优先复用项目已有能力、标准库、框架或平台 native feature 和已安装依赖，最后才写最小必要自定义代码，并沿用现有风格；不得为了少写代码削弱 validation、安全、错误处理、accessibility 或必要验证。错误不能静默通过：不要无证据新增字符串标准化、空值/空内容判断、依赖存在性判断、默认值兜底、空 catch、吞错、重试或降级；确需 fallback 时必须有业务契约、边界证据和可观测信号。关键路径要保留足够 traceability/observability，信息不足时先补 targeted 日志、trace、metric 或诚实说明缺口，不假装修复。如果本次 diff 改变入口、schema、validation、DI/bootstrap、命令、CI 或领域边界，交付前刷新对应 project 文档；清理存量防御式代码时追溯调用链并按 keep-boundary/remove-redundant/move-to-boundary/needs-evidence 核销，完成后核销约束和验证入口。除非用户或项目规则明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。"
+  default_prompt: "使用 $coding-standards 按已确认约束和项目契约实现最小正确改动，并沿项目正确路径完成验证。"

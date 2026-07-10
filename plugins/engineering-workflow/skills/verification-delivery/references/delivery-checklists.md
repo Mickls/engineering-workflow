@@ -25,14 +25,9 @@
 
 ## 项目上下文
 
-声明完成前检查：
+声明完成前复用同一任务的 readiness evidence，并确认其 `scan_scope` 覆盖最终 diff。入口、schema、validation、DI/bootstrap、generated code、命令、CI、领域术语或核心边界变化命中相关 `watch_patterns` 时，使用 `project-setup` 更新对应文档；无相关变化时不重复 refresh。
 
-- 是否读取了 `.codex/engineering-workflow/project/project-profile.md`、`commands.md`、`contracts.md`、`issue-workflow.md`、`context.md` 或 `context-map.md`。
-- 这些上下文是否包含 freshness 元数据，且 `scan_scope` 覆盖当前任务。
-- 本次 diff 是否触及入口、schema、validation、DI/bootstrap、module provider、generated code、package/build/test/CI 配置、领域术语或核心业务边界。
-- 本次 diff 是否触发统一实例化、DI/provider、generated code、schema/migration、事务、异步或手动生成流程契约；如触发，design/plan 或 no-doc 约束清单是否已有 `architecture` 约束。
-
-如果上下文缺失或 stale，且任务不是轻量只读，应在交付前使用 `project-setup bootstrap`、`refresh` 或 `targeted-refresh`。如果本次 diff 改变项目契约来源，必须回写对应 project 文档并刷新 metadata。
+本次 diff 触发统一实例化、DI/provider、generated code、schema/migration、事务、异步或手动流程时，design/plan 或 no-doc 清单必须已有对应 `architecture` 约束。
 
 ## 防御式代码审查
 

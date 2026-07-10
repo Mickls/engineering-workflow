@@ -7,23 +7,11 @@
 - `plugins/engineering-workflow`：Codex plugin，内含项目初始化、需求、普通诊断、线上问题排查、原型、需求拆分、架构审查、通用编码、测试、工程交接、验证交付等 skills。
 - `.agents/plugins/marketplace.json`：本目录自带的本地 marketplace。
 
-核心约束包括：项目上下文初始化、领域术语和 ADR 沉淀、需求关键约束覆盖表、plan 需求覆盖矩阵、实现回填、测试覆盖核销、反馈循环优先的诊断流程、最小正确实现检查和交付前验证核销，用于减少 design/plan 写清楚但实现遗漏边界，或 agent 为简单需求过度造抽象、依赖和自定义实现的情况。
+工作流用项目上下文、需求约束、真实入口诊断、实现路径契约、完整链路测试和基于证据的交付门禁，减少“业务结果可用但实现路径错误”以及不必要的抽象、依赖和自定义实现。
 
-`SKILL.md` 只作为入口文件，保留适用场景、硬门禁和 reference 路由；长 checklist、模板、语言特化规则和细化流程默认下沉到 `references/`。维护时优先压缩入口文件，避免把规则无限堆叠进 `SKILL.md`。
+`SKILL.md` 只保留核心流程、硬门禁和 reference 路由；详细 checklist、模板和语言规则放入按需读取的 `references/`。`agents/openai.yaml` 的 `default_prompt` 只提供一句调用示例，不复制 skill 流程。
 
-项目初始化会记录 `.codex/engineering-workflow/project/contracts.md`，用于沉淀当前项目语言、框架、接口校验、输入标准化和依赖保证。后续实现应遵从这些项目契约，避免在内部逻辑重复写字符串标准化、空值/空内容判断、依赖存在性判断或无证据默认值兜底。
-
-工作流要求错误不能静默通过：不得用空 catch、吞错、无证据默认值、重试、降级或兜底逻辑隐藏未知问题。难以定位的问题优先补充 targeted 日志、trace、metric、复现 harness 或明确说明信息不足；关键路径应保留能串起入口、状态变化、外部依赖和错误上下文的可观测信号。
-
-需求澄清默认采用一问一答：代码、测试和文档能确认的事实先自行查证；影响产品语义、实现路径、验收标准或风险取舍的决策交给用户确认。每次只问一个问题，并给出推荐答案和取舍影响；未达成 shared understanding 前不进入实现。
-
-编码流程默认追求“最小正确实现”：先判断需求是否必须构建，再优先复用项目已有能力、标准库、框架或平台原生能力和已安装依赖，最后才写最小必要的自定义代码。这个原则不依赖 Ponytail 插件、hook 或 mode，也不替代需求确认、完整功能闭环、trust boundary validation、安全、错误处理、accessibility、测试和交付验证门禁。
-
-默认工作产物目录为目标仓库的 `.codex/engineering-workflow/`。需求文档、项目上下文、原型、handoff、报告和诊断记录默认写入该目录，不放在项目主目录。
-
-除非用户或项目规则明确要求其他语言，工作流生成的回复和落盘工作产物正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。
-
-如果项目要求主文档使用英文，英文主文档保持权威来源；对于需要用户 review 的非轻量英文文档，工作流会在 `.codex/engineering-workflow/` 下生成中文 review 辅助说明，默认放在对应 issue 目录或 `.codex/engineering-workflow/review-notes/`，用于解释摘要、关键决策、风险和待确认问题。该规则不只适用于 design/plan，也适用于项目自定义的 exploration note、runbook、checklist、report、ADR、protocol、story、support content 等 durable artifacts；`.codex` 下的中文 review aid 不视为 duplicate translated report。
+运行时工作产物默认写入目标仓库 `.codex/engineering-workflow/` 并保持 ignored。正文默认中文；项目要求英文主文档时保持英文权威，并在该目录提供需要 review 的中文辅助说明。
 
 ## 维护原则
 
@@ -65,15 +53,24 @@ mkdir -p ~/.codex
 cp global/AGENTS.md ~/.codex/AGENTS.md
 ```
 
+如果 `codex plugin list` 仍显示旧的 `engineering-workflow@personal` 为 installed/enabled，先执行：
+
+```bash
+codex plugin remove engineering-workflow@personal
+```
+
+该命令只移除旧安装配置和 cache，不删除 personal marketplace 中的源码目录。
+
 `global/AGENTS.md` 是面向全局安装的通用入口，只包含业务项目也需要遵守的常驻规则和 skill 路由。根目录 `AGENTS.md` 只用于维护本仓库，不要复制到 `~/.codex/AGENTS.md`。
 
 安装后新开一个 Codex thread，让 Codex 重新加载 plugin 和 `AGENTS.md`。
 
 ## 更新
 
-修改 `plugins/engineering-workflow` 后，建议更新 plugin 版本或 cachebuster，再重新安装：
+修改 `plugins/engineering-workflow` 后，使用 plugin-creator helper 更新 cachebuster，再重新安装：
 
 ```bash
+python3 /Users/jiangcheng/.codex/skills/.system/plugin-creator/scripts/update_plugin_cachebuster.py plugins/engineering-workflow
 codex plugin add engineering-workflow@engineering-workflow
 ```
 
@@ -87,7 +84,14 @@ codex plugin add engineering-workflow@engineering-workflow
 scripts/validate-workflow.sh
 ```
 
-该脚本检查 plugin JSON、marketplace JSON、skill frontmatter、`agents/openai.yaml`、reference 链接，以及 `SKILL.md` 入口文件是否保持轻量。
+该脚本检查 plugin/marketplace JSON、skill frontmatter、reference 链接、规则 ownership、global/skill context budget，以及 `agents/openai.yaml` 的单句、长度和 `$skill-name` 门禁。
+
+校验脚本本身的正反向测试：
+
+```bash
+python3 -m unittest discover -s tests -v
+ruby -Itest test/validate_agent_metadata_test.rb
+```
 
 交付前可运行最小正确实现审计：
 
@@ -117,8 +121,11 @@ global/AGENTS.md
 .agents/plugins/marketplace.json
 scripts/validate-workflow.sh
 scripts/validate-workflow.py
+scripts/validate-agent-metadata.rb
 scripts/audit-minimal-correct.sh
 scripts/check-workflow-rule-sync.py
+tests/
+test/
 plugins/engineering-workflow/
   .codex-plugin/plugin.json
   scripts/

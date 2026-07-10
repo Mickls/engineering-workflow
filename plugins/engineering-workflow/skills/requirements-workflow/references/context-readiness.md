@@ -28,4 +28,6 @@
 - 多个核心来源变化或无法界定影响范围：运行 `project-setup refresh`。
 - 用户禁止写入 `.codex/engineering-workflow/`：在临时计划中记录项目契约、证据来源、未知项和风险。
 
+如果同一任务已经由 `project-setup` 记录 readiness evidence，且当前需求范围仍在其 `scan_scope` 内、相关工作树变化未命中 `watch_patterns`、`known_gaps` 未变化，则复用该证据，不重复 refresh。范围扩大或相关证据变化时再重新检查。
+
 不要为了默认创建或更新 `.codex/engineering-workflow/` 打断用户。只有非默认路径、外部 issue tracker、状态映射、多上下文结构或纳入 git 等真实决策点才需要确认。

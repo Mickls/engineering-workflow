@@ -1,4 +1,4 @@
 interface:
   display_name: "Engineering Handoff"
   short_description: "为长任务、会话切换或交给另一个 agent 生成工程交接文档"
-  default_prompt: "按工程交接流程生成 handoff 到 .codex/engineering-workflow/handoffs 或对应 issue 目录，记录当前目标、关键文档路径、验证结果、风险、建议后续 skills 和下一步；只引用路径，不管理 Codex runtime。除非用户或项目规则明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。"
+  default_prompt: "使用 $engineering-handoff 生成工程交接文档，记录当前状态、证据、风险和下一步。"

@@ -2,17 +2,11 @@
 
 ## Context Freshness
 
-编码前读取：
-
-- `.codex/engineering-workflow/project/project-profile.md`
-- `.codex/engineering-workflow/project/commands.md`
-- `.codex/engineering-workflow/project/contracts.md`
-- `.codex/engineering-workflow/project/issue-workflow.md`
-- `.codex/engineering-workflow/context.md` 或 `.codex/engineering-workflow/context-map.md`
-
-检查 `Freshness`、`scan_scope`、`evidence_paths`、`watch_patterns` 和 `known_gaps`。
+编码前读取项目 project/context；同一任务已有覆盖当前入口和约束的 readiness evidence 时复用，并检查此后相关工作树变化是否命中 `watch_patterns`。
 
 如果当前改动涉及 route/controller/handler/resolver、CLI/job、schema/OpenAPI/proto/GraphQL、middleware、validation、DI/bootstrap、module provider、generated code、package/build/test/CI 配置，确认这些来源在 `scan_scope` 中。缺少或过期的契约不能当作“上游已保证”的证据。
+
+任务范围扩大、相关证据路径变化或命中 `known_gaps` 时，重新使用 `project-setup`；`source_commit` 不同但无相关路径变化时不重复 refresh。
 
 ## 实现覆盖
 

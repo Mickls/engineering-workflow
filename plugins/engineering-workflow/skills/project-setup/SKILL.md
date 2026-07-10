@@ -39,7 +39,7 @@ description: "用于为某个仓库初始化或更新工程协作上下文，包
 - `.codex/engineering-workflow/project/issue-workflow.md`
 - `.codex/engineering-workflow/context.md` 或 `.codex/engineering-workflow/context-map.md`
 
-关键上下文缺失时默认运行 `bootstrap`；命中 stale 信号时运行 `targeted-refresh` 或 `refresh`。只有用户禁止写入、需要非默认位置、需要纳入 git、需要外部 issue tracker 或多上下文结构时，才先确认。
+关键上下文缺失时运行 `bootstrap`；命中 stale 信号时运行 `targeted-refresh` 或 `refresh`。同一任务已有仍覆盖当前 scope 的 readiness 证据时直接复用；失效条件见 [refresh-rules.md](references/refresh-rules.md)。只有用户禁止写入、需要非默认位置、纳入 git、外部 issue tracker 或多上下文结构时，才先确认。
 
 ## 运行模式
 

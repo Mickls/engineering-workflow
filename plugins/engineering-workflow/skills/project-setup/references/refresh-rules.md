@@ -22,7 +22,21 @@
 - 非轻量任务无法读取 freshness 元数据。
 - 非 git 项目中，证据文件 mtime 晚于上下文文件，或无法判断 freshness。
 
+`source_commit` 与当前 `HEAD` 不同本身不等于 stale；必须结合两者之间的变更路径、当前工作树和 `watch_patterns` 判断。
+
 证据不足时不要把旧结论当成当前事实。应把相关保证降级到 `Still Unsafe Boundaries`、`known_gaps` 或临时风险说明，再决定是否补充本地校验。
+
+## 同一任务内复用
+
+首次 readiness 检查后记录任务级证据：检查时的 `HEAD`、相关工作树路径、已读 project/context 文件、覆盖的 `scan_scope`、命中的 `watch_patterns` / `known_gaps` 和 readiness 结果。
+
+后续 requirements、coding、testing 和 verification 可以复用该证据，不重复读取和刷新全部上下文。以下任一条件出现时证据失效并重新检查：
+
+- 任务范围扩展到未覆盖的入口、模块、命令或契约。
+- `HEAD` 或工作树新增变化命中相关 project 文档的 `watch_patterns`。
+- 新信息命中 `known_gaps`，或原证据文件被删除、替换、生成或迁移。
+
+每个 project 文档的 `watch_patterns` 只覆盖会改变该文档结论的来源；能列具体入口、配置或文档时，不使用整个仓库或全部 skills 的宽泛模式。
 
 ## 模式选择
 

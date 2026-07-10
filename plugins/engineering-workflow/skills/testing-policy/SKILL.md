@@ -13,14 +13,7 @@ description: "用于规划、编写、更新、运行或解释测试；处理测
 
 ## 必须先读
 
-规划、编写或解释非轻量测试前，先读取：
-
-- `.codex/engineering-workflow/project/commands.md`
-- `.codex/engineering-workflow/project/contracts.md`
-- `.codex/engineering-workflow/project/project-profile.md`
-- `.codex/engineering-workflow/context.md` 或 `.codex/engineering-workflow/context-map.md`
-
-如果上下文缺失、freshness 元数据缺失、当前测试涉及的 package/module/fixture 不在 `scan_scope` 中，或 package/build/test/CI 配置命中 `watch_patterns`，先使用 `project-setup bootstrap` 或 `targeted-refresh`。
+规划、编写或解释非轻量测试前，读取项目 commands、contracts 和 context。同一任务已有覆盖当前测试入口、fixture 和命令的 readiness evidence 时复用；范围扩大、相关配置变化或命中 gap 时再使用 `project-setup`。
 
 ## 何时新增或更新测试
 

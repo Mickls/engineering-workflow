@@ -1,4 +1,4 @@
 interface:
   display_name: "Testing Policy"
   short_description: "高价值链路测试、回归复现、新增/跳过判断和失败诊断规则"
-  default_prompt: "按测试策略处理这个任务：读取 .codex/engineering-workflow 下的 design/plan、project/contracts.md、commands.md 或 no-doc 最小关键约束清单，并检查测试命令、fixture 和契约上下文是否缺失或 stale；缺失时先 project-setup bootstrap，package/build/test/CI 配置或当前模块超出 scan_scope 时先 targeted-refresh。用少量有证明力的测试验证用户行为，优先从完整调用链进入；清理重复防御式代码时证明边界契约和外部行为，不为每个内部 guard 堆低价值测试；失败时先诊断再决定改测试或逻辑。除非用户或项目规则明确要求其他语言，回复和落盘工作产物的正文、标题、表格列名和状态解释默认使用中文；文件名、命令、API、代码标识符、状态枚举和引用路径可以保留英文。"
+  default_prompt: "使用 $testing-policy 从真实入口或稳定 contract 设计少量高价值测试，并先诊断失败原因。"
