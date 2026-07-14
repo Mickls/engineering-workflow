@@ -1,6 +1,6 @@
 ---
 name: coding-standards
-description: "用于实现、修改或 review 任意语言的项目代码，包括调用链理解、复用优先、校验位置、错误处理、日志、数据库/migration、依赖变更、资源/并发处理、项目风格对齐，以及语言特化规则。"
+description: "当任务进入项目代码实现、修改或 code review 阶段时使用；涉及 validation、错误处理、日志、数据库/migration、依赖、资源或并发时也应触发，不用于纯需求分析。"
 ---
 
 # 编码规范

@@ -1,6 +1,6 @@
 ---
 name: issue-slicing
-description: "用于把过大的需求、PRD、design/plan 或执行计划拆成可独立完成和验证的垂直切片；避免只按数据库、DAO、接口、前端等水平层级拆完后缺少可验收闭环。"
+description: "当需求、PRD、design/plan 或执行计划过大，无法由单个可独立实现和验证的交付闭环承载时使用；不用于按数据库、DAO、接口或前端做水平分层拆分。"
 ---
 
 # Issue Slicing

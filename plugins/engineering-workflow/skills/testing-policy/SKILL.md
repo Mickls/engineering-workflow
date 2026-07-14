@@ -1,6 +1,6 @@
 ---
 name: testing-policy
-description: "用于规划、编写、更新、运行或解释测试；处理测试失败；判断是否需要新增或跳过测试；以及用少量有证明力的完整调用链测试验证用户行为，而不是堆砌内部实现测试。"
+description: "当任务涉及测试规划、编写、更新、运行、解释、失败分析，或判断是否新增/跳过测试时使用；bug 根因诊断先配合 diagnosis-workflow 或 incident-debugging。"
 ---
 
 # 测试策略

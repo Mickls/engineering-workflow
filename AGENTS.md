@@ -44,7 +44,8 @@
 - 不把长 checklist、模板、状态解释、语言特化规则、细化流程、大段示例或背景说明继续堆进 `SKILL.md`；这些内容默认放入同一 skill 的 `references/`。
 - 新增或保留 `SKILL.md` 正文内容前，先判断它是否每次触发该 skill 都必须加载；如果只是特定分支、特定语言、特定文档或特定验证阶段才需要，必须下沉到 reference。
 - 每个 `references/*.md` 必须由同一 skill 的 `SKILL.md` 直接链接，并说明何时读取；不要创建隐藏 reference 或多级 reference 路由。
-- `SKILL.md` frontmatter 只允许 `name` 和 `description`；触发条件尽量放在 `description`，正文不重复写大段触发说明。
+- `SKILL.md` frontmatter 只允许 `name` 和 `description`；`description` 是 progressive disclosure 的 routing contract，必须以“当……时使用”前置可观察触发场景，只保留必要的适用边界和相邻 skill 区分，不写执行流程、输出格式或能力清单。
+- `SKILL.md` 正文负责说明 skill 的目标、流程、硬门禁和 reference 路由，不重复大段触发说明。
 - 单个 `SKILL.md` 不得超过 80 行或 3000 字符，全部入口合计不得超过 20000 字符；`verification-delivery` 不得超过 60 行或 1800 字符。
 - `agents/openai.yaml` 的 `default_prompt` 只保留一句调用示例，不超过 180 字符，并显式引用对应 `$skill-name`。
 

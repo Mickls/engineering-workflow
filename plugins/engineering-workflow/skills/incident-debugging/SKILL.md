@@ -1,6 +1,6 @@
 ---
 name: incident-debugging
-description: "用于线上问题、生产 bug、数据误删、重复调用、幂等性、并发、回归复现和事故排查；要求先从真实入口复现并证明根因，再进行最小修复和同路径验证。"
+description: "当任务涉及生产事故、线上 bug、数据误删、重复调用、幂等、并发或高风险回归时使用；普通本地问题改用 diagnosis-workflow。"
 ---
 
 # 线上问题排查

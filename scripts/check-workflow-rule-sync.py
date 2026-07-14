@@ -21,19 +21,48 @@ class RuleInvariant:
 
 INVARIANTS = (
     RuleInvariant(
-        "requirements-confirmation",
+        "requirements-clarification",
+        (
+            Checkpoint(
+                "owner",
+                "plugins/engineering-workflow/skills/requirements-workflow/references/clarification-interview.md",
+                ("唯一 owner", "动态设计树", "反向遗漏检查", "informed override"),
+            ),
+            Checkpoint(
+                "route",
+                "plugins/engineering-workflow/skills/requirements-workflow/SKILL.md",
+                ("设计前澄清门禁", "clarification-interview.md", "clarification-template.md"),
+            ),
+            Checkpoint(
+                "artifact-consumer",
+                "plugins/engineering-workflow/skills/requirements-workflow/references/clarification-template.md",
+                ("awaiting-clarification-approval", "澄清核销总结"),
+            ),
+            Checkpoint(
+                "global-fail-safe",
+                "global/AGENTS.md",
+                ("澄清核销总结", "不推断批准"),
+            ),
+        ),
+    ),
+    RuleInvariant(
+        "requirements-design-confirmation",
         (
             Checkpoint(
                 "owner",
                 "plugins/engineering-workflow/skills/requirements-workflow/references/confirmation-and-change-gates.md",
-                ("确认前不得", "后续用户消息"),
+                ("Design / Plan 批准", "设计批准前不得", "后续用户消息"),
             ),
             Checkpoint(
                 "route",
                 "plugins/engineering-workflow/skills/requirements-workflow/SKILL.md",
                 ("confirmation-and-change-gates.md",),
             ),
-            Checkpoint("global-fail-safe", "global/AGENTS.md", ("后续确认",)),
+            Checkpoint(
+                "global-fail-safe",
+                "global/AGENTS.md",
+                ("design/plan 只能写", "后续明确确认"),
+            ),
         ),
     ),
     RuleInvariant(

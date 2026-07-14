@@ -24,11 +24,16 @@ class ValidateWorkflowTest(unittest.TestCase):
     def tearDown(self) -> None:
         self.temp_dir.cleanup()
 
-    def create_skill(self, name: str, body: str = "# Skill\n") -> Path:
+    def create_skill(
+        self,
+        name: str,
+        body: str = "# Skill\n",
+        description: str = "当任务涉及测试时使用。",
+    ) -> Path:
         skill_dir = self.skill_root / name
         (skill_dir / "agents").mkdir(parents=True)
         (skill_dir / "SKILL.md").write_text(
-            f'---\nname: {name}\ndescription: "Use for tests."\n---\n\n{body}',
+            f'---\nname: {name}\ndescription: "{description}"\n---\n\n{body}',
             encoding="utf-8",
         )
         (skill_dir / "agents" / "openai.yaml").write_text(
@@ -60,6 +65,22 @@ class ValidateWorkflowTest(unittest.TestCase):
         self.create_skill("test-skill", "# Skill\n\n## 何时使用\n\n- always\n")
         errors = MODULE.validate_workflow(self.skill_root, self.global_agents)
         self.assertTrue(any("frontmatter description" in error for error in errors))
+
+    def test_rejects_capability_summary_description(self) -> None:
+        self.create_skill("test-skill", description="用于提供测试工作流。")
+        errors = MODULE.validate_workflow(self.skill_root, self.global_agents)
+        self.assertTrue(any("routing contract" in error for error in errors))
+
+    def test_rejects_description_without_trigger_marker(self) -> None:
+        self.create_skill("test-skill", description="当任务涉及测试。")
+        errors = MODULE.validate_workflow(self.skill_root, self.global_agents)
+        self.assertTrue(any("时使用" in error for error in errors))
+
+    def test_rejects_oversized_description(self) -> None:
+        description = "当" + "任务" * 110 + "时使用。"
+        self.create_skill("test-skill", description=description)
+        errors = MODULE.validate_workflow(self.skill_root, self.global_agents)
+        self.assertTrue(any("routing metadata" in error for error in errors))
 
     def test_reports_long_paragraph_repeated_in_reference(self) -> None:
         paragraph = "Repeated guidance " * 12

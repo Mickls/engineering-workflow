@@ -11,8 +11,11 @@ MAX_GLOBAL_AGENTS_CHARS = 6_000
 MAX_SKILL_MD_LINES = 80
 MAX_SKILL_MD_CHARS = 3_000
 MAX_TOTAL_SKILL_MD_CHARS = 20_000
+MAX_SKILL_DESCRIPTION_CHARS = 220
 SPECIAL_SKILL_BUDGETS = {"verification-delivery": (60, 1_800)}
 ALLOWED_FRONTMATTER_KEYS = {"name", "description"}
+DESCRIPTION_TRIGGER_PREFIX = "当"
+DESCRIPTION_TRIGGER_MARKER = "时使用"
 TRIGGER_HEADINGS = ("## 何时使用", "## 什么时候使用")
 MIN_DUPLICATE_PARAGRAPH_CHARS = 120
 
@@ -182,8 +185,34 @@ def validate_frontmatter(path: Path, text: str, errors: list[str]) -> None:
 
     if not re.search(r"^name:\s*.+", frontmatter, re.M):
         errors.append(f"{path}: frontmatter missing name")
-    if not re.search(r"^description:\s*.+", frontmatter, re.M):
+    description_match = re.search(r"^description:\s*(.+)\s*$", frontmatter, re.M)
+    if description_match is None:
         errors.append(f"{path}: frontmatter missing description")
+        return
+
+    description = description_match.group(1).strip()
+    if (
+        len(description) >= 2
+        and description[0] == description[-1]
+        and description[0] in {'"', "'"}
+    ):
+        description = description[1:-1]
+
+    if len(description) > MAX_SKILL_DESCRIPTION_CHARS:
+        errors.append(
+            f"{path}: description has {len(description)} characters; keep routing "
+            f"metadata at {MAX_SKILL_DESCRIPTION_CHARS} characters or less"
+        )
+    if not description.startswith(DESCRIPTION_TRIGGER_PREFIX):
+        errors.append(
+            f"{path}: description must be a routing contract starting with "
+            f"{DESCRIPTION_TRIGGER_PREFIX!r}"
+        )
+    if DESCRIPTION_TRIGGER_MARKER not in description:
+        errors.append(
+            f"{path}: description must state when to trigger with "
+            f"{DESCRIPTION_TRIGGER_MARKER!r}"
+        )
 
 
 def validate_reference_links(

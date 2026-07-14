@@ -1,6 +1,6 @@
 ---
 name: project-setup
-description: "用于为某个仓库初始化或更新工程协作上下文，包括 .codex 工作目录、常用命令、领域术语、ADR、测试环境、轻量任务定义和 out-of-scope 规则；首次在项目中使用 engineering-workflow 或发现项目上下文缺失时使用。"
+description: "当首次在仓库中使用 engineering-workflow，或项目上下文缺失、stale、超出 scan_scope、命中 watch_patterns / known_gaps 时使用；已有新鲜且覆盖当前范围的上下文应复用。"
 ---
 
 # 项目工程上下文初始化和刷新

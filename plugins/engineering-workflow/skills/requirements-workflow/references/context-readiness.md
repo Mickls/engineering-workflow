@@ -1,6 +1,6 @@
 # Context Readiness
 
-创建或更新非轻量 `design.md` / `plan.md` 前，检查项目上下文是否可用。
+新建或重新打开非轻量需求、开始澄清前，检查项目上下文是否可用。澄清批准后创建或更新 `design.md` / `plan.md` 时复用同一任务的 readiness evidence；范围或证据发生变化时再刷新。
 
 ## 必要文件
 

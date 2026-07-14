@@ -1,6 +1,6 @@
 ---
 name: verification-delivery
-description: "用于声明任务完成前、代码或文档修改后、提交前，以及汇报 lint/test/build 结果、跳过检查、剩余风险和最终交付内容。"
+description: "当代码或文档修改后、提交前、声明完成前，或需要汇报 lint/test/build、跳过项和剩余风险时使用。"
 ---
 
 # 验证和交付

@@ -1,6 +1,6 @@
 ---
 name: engineering-handoff
-description: "用于长任务中断、切换会话、交给另一个 agent 或需要压缩工程上下文时生成项目交接文档；只记录工程状态，不管理 Codex runtime 或子 agent 生命周期。"
+description: "当长任务需要中断、切换会话、交给另一个 agent 或压缩工程上下文时使用；不用于管理 Codex runtime 或子 agent 生命周期。"
 ---
 
 # 工程交接

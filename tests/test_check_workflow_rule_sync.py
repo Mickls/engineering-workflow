@@ -16,6 +16,23 @@ SPEC.loader.exec_module(MODULE)
 
 
 class CheckWorkflowRuleSyncTest(unittest.TestCase):
+    def test_includes_requirements_clarification_invariant(self) -> None:
+        invariant = next(
+            item
+            for item in MODULE.INVARIANTS
+            if item.name == "requirements-clarification"
+        )
+        self.assertEqual(
+            1,
+            sum(checkpoint.role == "owner" for checkpoint in invariant.checkpoints),
+        )
+        self.assertTrue(
+            any(
+                checkpoint.role == "global-fail-safe"
+                for checkpoint in invariant.checkpoints
+            )
+        )
+
     def test_validates_owner_and_consumer_roles(self) -> None:
         invariant = MODULE.RuleInvariant(
             "demo",

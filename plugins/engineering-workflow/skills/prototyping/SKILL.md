@@ -1,6 +1,6 @@
 ---
 name: prototyping
-description: "用于在正式实现前构建 throwaway 原型验证 UI、交互、状态机、业务规则、数据模型或 API 形状；区分 UI prototype 和 logic prototype，并要求原型回答具体问题后删除或沉淀结论。"
+description: "当正式实现前需要用 throwaway 原型验证 UI、交互、状态机、业务规则、数据模型或 API 形状时使用；需求和实现路径已确定时不使用。"
 ---
 
 # 原型工作流

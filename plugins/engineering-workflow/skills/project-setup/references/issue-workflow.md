@@ -37,7 +37,8 @@
 
 ## 状态
 
-- draft：
+- clarifying：非轻量需求正在调查和逐题澄清，批准前只维护 README、clarification 和绑定问题的原型。
+- draft：项目既有或自定义草稿状态；不得用于绕过新建或重新打开非轻量需求的 `clarifying` 门禁。
 - reviewing：
 - approved：
 - doing：
@@ -49,11 +50,13 @@
 
 - 什么时候必须创建 issue：
 - 什么时候可以跳过：
-- design/plan 确认门禁：非轻量需求创建或更新 design/plan 后必须停止当前回合，等待用户后续消息确认；确认前不得编码、写测试、生成 migration/proto 或安排实现类任务。
+- 澄清门禁：新建或重新打开的非轻量需求先调查项目并进入 `clarifying`，只创建 README 和 `clarification.md`；澄清核销总结获得用户后续明确批准前，不得创建或更新 design/plan。已完成历史 issue 不追溯补建，重新打开、范围变化或重大设计修改时必须应用。
+- 两阶段批准：澄清批准后创建或更新 design/plan，状态改为 `reviewing` 并停止当前回合；只有用户后续明确批准 design/plan 或要求按方案实现，才能进入 `approved` / `doing`。回答单个问题、补充背景、局部认可或含糊的“继续”不得推断为任一阶段批准。
+- 重新澄清：设计或实现发现影响范围、行为、接口、数据、事务、兼容、风险、验收或测试策略的新信息时，回到 `clarifying`，并把依赖决定标记为 `still-valid`、`needs-reconfirmation` 或 `invalidated`。
 - design 正文只保留当前有效方案：更新已有文档时删除上一版废弃概念、纠错痕迹和过程叙述；需要长期保留的否决方案放到 out-of-scope 或 ADR。
 - no-doc 非轻量例外：如果用户明确要求跳过 issue 文档，仍需在回复或临时计划中列出最小关键约束、实现落点、验证入口，并在交付前逐条核销。
 - 需求覆盖矩阵位置：`design.md` 放关键约束覆盖表，`plan.md` 放需求覆盖矩阵。
-- UI 原型门禁：独立 UI 需求确认 design/plan 前，默认生成静态 HTML 原型到对应需求目录。
+- UI 原型门禁：独立 UI 需求在澄清核销批准前生成静态 HTML 原型到对应需求目录，并绑定一个明确的澄清问题。
 - 英文主文档规则：如果项目要求主文档使用英文，英文文档是权威来源；非轻量且需要用户 review 时，同步生成中文 review 辅助说明，并在说明中标注源文件、`source_commit` 或更新时间、生成时间和“英文原文为准”。
 - duplicate translated report 规则：如果项目禁止重复翻译报告或双语协议，`.codex/engineering-workflow/` 下的中文 review aid 仍可生成，除非项目或用户明确禁止任何中文辅助文件；不得把 review aid 写进生产 artifact 目录。
 - ignored 文件规则：`.codex/engineering-workflow/` 默认不主动纳入 git；必要时先说明并等待用户确认。

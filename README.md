@@ -7,9 +7,9 @@
 - `plugins/engineering-workflow`：Codex plugin，内含项目初始化、需求、普通诊断、线上问题排查、原型、需求拆分、架构审查、通用编码、测试、工程交接、验证交付等 skills。
 - `.agents/plugins/marketplace.json`：本目录自带的本地 marketplace。
 
-工作流用项目上下文、需求约束、真实入口诊断、实现路径契约、完整链路测试和基于证据的交付门禁，减少“业务结果可用但实现路径错误”以及不必要的抽象、依赖和自定义实现。
+工作流用项目上下文、设计前逐题澄清、需求约束、真实入口诊断、实现路径契约、完整链路测试和基于证据的交付门禁，减少“业务结果可用但实现路径错误”以及不必要的抽象、依赖和自定义实现。
 
-`SKILL.md` 只保留核心流程、硬门禁和 reference 路由；详细 checklist、模板和语言规则放入按需读取的 `references/`。`agents/openai.yaml` 的 `default_prompt` 只提供一句调用示例，不复制 skill 流程。
+skill 的 frontmatter `description` 只承担 progressive disclosure 的路由职责，前置说明何时使用和必要边界；`SKILL.md` 正文保留核心流程、硬门禁和 reference 路由，详细 checklist、模板和语言规则放入按需读取的 `references/`。`agents/openai.yaml` 的 `default_prompt` 只提供一句调用示例，不复制 skill 流程。
 
 运行时工作产物默认写入目标仓库 `.codex/engineering-workflow/` 并保持 ignored。正文默认中文；项目要求英文主文档时保持英文权威，并在该目录提供需要 review 的中文辅助说明。
 
@@ -41,6 +41,8 @@
 ```
 
 这些文件默认用于当前 agent 协作和用户 review，不属于生产代码。除非用户明确要求共享某些文件，否则不要把 `.codex/engineering-workflow/` 强行加入 git。
+
+非轻量需求先创建 `README.md(status=clarifying)` 和 `clarification.md`。AI 查证项目事实、按动态设计树逐题确认产品及重大技术决策，并在用户明确批准澄清核销总结后，才创建权威 `design.md` 和 `plan.md`。已完成历史 issue 不追溯补建；重新打开或发生重大需求变化时应用该流程。
 
 ## 安装
 
@@ -84,7 +86,7 @@ codex plugin add engineering-workflow@engineering-workflow
 scripts/validate-workflow.sh
 ```
 
-该脚本检查 plugin/marketplace JSON、skill frontmatter、reference 链接、规则 ownership、global/skill context budget，以及 `agents/openai.yaml` 的单句、长度和 `$skill-name` 门禁。
+该脚本检查 plugin/marketplace JSON、skill frontmatter、description routing contract、reference 链接、规则 ownership、global/skill context budget，以及 `agents/openai.yaml` 的单句、长度和 `$skill-name` 门禁。
 
 校验脚本本身的正反向测试：
 
