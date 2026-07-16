@@ -30,7 +30,7 @@ description: "当需求、PRD、design/plan 或执行计划过大，无法由单
 
 类型：
 
-- `AFK`：需求、上下文和验证足够清楚，agent 可独立完成。
-- `HITL`：需要用户决策、设计确认、外部权限或手动验证。
+- `AFK`：行为、验收、项目模式和验证入口均已确认，可独立完成并在自审后继续下一切片。
+- `HITL`：出现新决定、方案偏离、证据缺口、手动步骤、未覆盖风险或用户 review budget 命中，必须暂停。
 
-拆分后需要请用户确认粒度、依赖和优先级。确认前不得直接进入编码。
+拆分后需要请用户确认粒度、依赖和优先级。确认前不得直接进入编码；批准后的连续执行和停点细则见 [execution-review-boundaries.md](references/execution-review-boundaries.md)。

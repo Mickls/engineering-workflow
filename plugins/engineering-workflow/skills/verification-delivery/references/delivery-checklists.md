@@ -22,6 +22,12 @@
 - 如果实现过程中发现 design/plan 漏了关键约束，先更新文档并说明，不得把新行为藏在代码里。
 - `architecture` 约束必须逐条核销：统一实例化、DI/provider、generated code、schema/migration、事务边界、异步/手动生成流程都要有 diff 证据或明确不适用证据。
 - 正确路径需要用户手工生成、迁移或部署时，只能把对应约束报告为 `blocked` / `manual-only`，并说明下一步；不得为了交付闭环手改 generated output、绕开 provider/DI、跳过 schema/migration 来源或隐藏手动步骤。
+- 行为约束的验证证据必须对应编码前已批准的验收场景；根据实现结果反向补写的场景不能作为独立证明。
+
+## 用户 Review 包
+
+- HITL 和最终交付先按 `review-packets.md` 提供普通语言的行为、目标关系、方案偏离、验收证据、剩余风险和最多三个用户 review 项。
+- 文件列表、完整命令、diff 和专业技术细节放在技术证据区，不能成为理解用户可见行为的前提。
 
 ## 项目上下文
 

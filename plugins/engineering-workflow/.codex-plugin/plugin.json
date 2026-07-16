@@ -1,6 +1,6 @@
 {
   "name": "engineering-workflow",
-  "version": "0.2.0+codex.20260714080617",
+  "version": "0.2.0+codex.20260715122757",
   "description": "Engineering workflow skills for project setup, requirements, diagnosis, incidents, prototyping, slicing, architecture, coding, testing, handoff, and delivery.",
   "author": {
     "name": "Local developer"

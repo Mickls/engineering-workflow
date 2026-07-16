@@ -33,6 +33,60 @@ class CheckWorkflowRuleSyncTest(unittest.TestCase):
             )
         )
 
+    def test_includes_low_friction_review_invariants(self) -> None:
+        expected = {
+            "risk-triggered-review",
+            "preimplementation-acceptance",
+            "behavior-risk-review-packet",
+        }
+        selected = {
+            item.name: item
+            for item in MODULE.INVARIANTS
+            if item.name in expected
+        }
+        self.assertEqual(expected, set(selected))
+        for invariant in selected.values():
+            self.assertEqual(
+                1,
+                sum(
+                    checkpoint.role == "owner"
+                    for checkpoint in invariant.checkpoints
+                ),
+            )
+            self.assertTrue(
+                any(
+                    checkpoint.role == "global-fail-safe"
+                    for checkpoint in invariant.checkpoints
+                )
+            )
+
+    def test_low_friction_invariant_reports_missing_consumer_marker(self) -> None:
+        invariant = next(
+            item
+            for item in MODULE.INVARIANTS
+            if item.name == "risk-triggered-review"
+        )
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            missing_marker = "升级 HITL"
+            for checkpoint in invariant.checkpoints:
+                path = root / checkpoint.path
+                path.parent.mkdir(parents=True, exist_ok=True)
+                markers = checkpoint.markers
+                if checkpoint.role == "coding-consumer":
+                    markers = tuple(
+                        marker
+                        for marker in markers
+                        if marker != missing_marker
+                    )
+                path.write_text("\n".join(markers), encoding="utf-8")
+
+            errors = MODULE.validate_invariants(root, (invariant,))
+            self.assertTrue(
+                any(missing_marker in error for error in errors),
+                errors,
+            )
+
     def test_validates_owner_and_consumer_roles(self) -> None:
         invariant = MODULE.RuleInvariant(
             "demo",

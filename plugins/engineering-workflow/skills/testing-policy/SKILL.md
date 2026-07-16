@@ -36,6 +36,7 @@ description: "当任务涉及测试规划、编写、更新、运行、解释、
 
 ## 测试入口硬门禁
 
+- 非轻量行为切片编码前先确定验收场景：真实入口、前置状态、操作、用户可见结果、关键副作用和失败行为；测试从场景和约束 ID 推导，不根据实现反向定义期望。
 - 优先从 `HTTP/RPC handler`、route、controller、resolver、event/job、CLI、页面/用户操作入口或 public package/module API 进入。
 - 只有当低层入口本身是稳定 public contract、外层没有相关绑定/校验/权限/事务/副作用/错误映射，或已有测试覆盖外层时，才用 service/package/module 入口。
 - 如果真实需求只能通过更高层 workflow 观察，不要只测试被改动的 helper。

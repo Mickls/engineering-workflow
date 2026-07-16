@@ -34,7 +34,7 @@ description: "当代码或文档修改后、提交前、声明完成前，或需
 
 - 按 diff 风险运行 lint、test、build/typecheck/compile；纯文档使用结构、链接、路径和回读检查。
 - 验证命令的选择与跳过规则见 [validation-commands.md](references/validation-commands.md)。
-- 最终回复包含修改摘要、关键路径、已运行命令和结果、未验证项、剩余风险以及需要用户处理的事项。
+- HITL 和最终回复先给行为、目的、偏离、证据和剩余风险，再给技术细节；格式见 [review-packets.md](references/review-packets.md)。
 
 ## Commit
 

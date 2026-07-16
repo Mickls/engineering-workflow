@@ -26,7 +26,14 @@ INVARIANTS = (
             Checkpoint(
                 "owner",
                 "plugins/engineering-workflow/skills/requirements-workflow/references/clarification-interview.md",
-                ("唯一 owner", "动态设计树", "反向遗漏检查", "informed override"),
+                (
+                    "唯一 owner",
+                    "动态设计树",
+                    "问题准入和地图",
+                    "ready-for-decision",
+                    "反向遗漏检查",
+                    "informed override",
+                ),
             ),
             Checkpoint(
                 "route",
@@ -36,12 +43,42 @@ INVARIANTS = (
             Checkpoint(
                 "artifact-consumer",
                 "plugins/engineering-workflow/skills/requirements-workflow/references/clarification-template.md",
-                ("awaiting-clarification-approval", "澄清核销总结"),
+                ("awaiting-clarification-approval", "问题地图", "active question", "澄清核销总结"),
             ),
             Checkpoint(
                 "global-fail-safe",
                 "global/AGENTS.md",
-                ("澄清核销总结", "不推断批准"),
+                ("真实场景", "问题地图", "澄清核销总结", "不得推断为批准"),
+            ),
+        ),
+    ),
+    RuleInvariant(
+        "risk-triggered-review",
+        (
+            Checkpoint(
+                "owner",
+                "plugins/engineering-workflow/skills/issue-slicing/references/execution-review-boundaries.md",
+                ("唯一 owner", "AFK 准入", "HITL 触发", "Review Budget"),
+            ),
+            Checkpoint(
+                "route",
+                "plugins/engineering-workflow/skills/issue-slicing/SKILL.md",
+                ("execution-review-boundaries.md", "AFK", "HITL"),
+            ),
+            Checkpoint(
+                "coding-consumer",
+                "plugins/engineering-workflow/skills/coding-standards/references/review-checklist.md",
+                ("相邻实现", "review budget", "升级 HITL"),
+            ),
+            Checkpoint(
+                "plan-consumer",
+                "plugins/engineering-workflow/skills/requirements-workflow/references/plan-template.md",
+                ("执行和 Review 边界", "review budget"),
+            ),
+            Checkpoint(
+                "global-fail-safe",
+                "global/AGENTS.md",
+                ("AFK 切片可连续执行", "升级 HITL", "review budget"),
             ),
         ),
     ),
@@ -144,6 +181,36 @@ INVARIANTS = (
         ),
     ),
     RuleInvariant(
+        "preimplementation-acceptance",
+        (
+            Checkpoint(
+                "owner",
+                "plugins/engineering-workflow/skills/testing-policy/references/test-entry-and-value.md",
+                ("编码前验收场景", "不能先实现", "关键副作用"),
+            ),
+            Checkpoint(
+                "route",
+                "plugins/engineering-workflow/skills/testing-policy/SKILL.md",
+                ("编码前先确定验收场景", "不根据实现反向定义期望"),
+            ),
+            Checkpoint(
+                "design-consumer",
+                "plugins/engineering-workflow/skills/requirements-workflow/references/design-template.md",
+                ("编码前验收场景", "关键副作用 / 失败行为"),
+            ),
+            Checkpoint(
+                "coverage-consumer",
+                "plugins/engineering-workflow/skills/testing-policy/references/coverage-matrix.md",
+                ("验收场景", "反向补写"),
+            ),
+            Checkpoint(
+                "global-fail-safe",
+                "global/AGENTS.md",
+                ("行为切片编码前确定", "用户可见结果", "关键副作用"),
+            ),
+        ),
+    ),
+    RuleInvariant(
         "incident-evidence",
         (
             Checkpoint(
@@ -168,6 +235,31 @@ INVARIANTS = (
                 ("同路径验证", "剩余风险"),
             ),
             Checkpoint("global-fail-safe", "global/AGENTS.md", ("刚运行", "未验证项")),
+        ),
+    ),
+    RuleInvariant(
+        "behavior-risk-review-packet",
+        (
+            Checkpoint(
+                "owner",
+                "plugins/engineering-workflow/skills/verification-delivery/references/review-packets.md",
+                ("唯一 owner", "用户 Review 区", "方案偏离", "最多三个"),
+            ),
+            Checkpoint(
+                "route",
+                "plugins/engineering-workflow/skills/verification-delivery/SKILL.md",
+                ("review-packets.md", "行为", "剩余风险"),
+            ),
+            Checkpoint(
+                "delivery-consumer",
+                "plugins/engineering-workflow/skills/verification-delivery/references/delivery-checklists.md",
+                ("用户 Review 包", "最多三个用户 review 项"),
+            ),
+            Checkpoint(
+                "global-fail-safe",
+                "global/AGENTS.md",
+                ("方案偏离", "最多列三个", "技术细节随后提供"),
+            ),
         ),
     ),
     RuleInvariant(
