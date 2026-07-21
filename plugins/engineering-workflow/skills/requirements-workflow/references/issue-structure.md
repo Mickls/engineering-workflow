@@ -43,6 +43,7 @@
 - 只有用户确认 design/plan，或明确要求继续实现时，状态才改为 `approved`。
 - 开始实现时状态改为 `doing`。
 - 只有存在验证证据后，状态才改为 `done`。
+- 当前批准的验收场景全部通过后应改为 `done` 并交付；非阻塞新发现创建独立 follow-up，不继续扩大原 issue 的完成定义。
 - 如果被阻塞，状态改为 `blocked`。
 - 已完成历史 issue 不追溯补建 clarification；重新打开、范围变化或重大设计修改时必须补建。
 - 旧权威方案明确被否决时可标记 `deprecated` / `superseded`，未批准的新方案不得覆盖它。

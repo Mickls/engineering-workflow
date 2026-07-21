@@ -39,6 +39,10 @@
 - HITL 触发条件：
 - review budget：none / 数值与单位
 - budget 统计范围和排除项：
+- interaction budget：预计问题数 / 预计阅读时间 / 阻塞停点
+- delegated/recommended-default 授权范围：none / ...
+- 临时逐单元 review 的原因、截止条件和恢复 AFK 条件：none / ...
+- 手工生成、迁移、部署和大资源测试的集中里程碑：none / ...
 - 阶段性汇报是否阻塞：否 / 例外条件
 
 ## 防御式代码审查 / 清理候选
@@ -80,7 +84,7 @@
 - 如果本需求会修改入口、schema、validation、DI/bootstrap、命令、CI、领域术语或核心业务边界，必须在计划中列出交付前回写的 project 文档。
 - 如果本需求触发统一实例化、DI/provider、generated code、schema/migration、事务、异步或手动生成流程契约，必须在 `需求覆盖矩阵` 中列出正确实现路径、允许的停点和禁止绕过方式；正确路径需要用户手工生成时，相关约束交付状态应写 `blocked` / `manual-only`，不得写成已完整 verified。
 - 如果本需求涉及新增或清理防御式代码，必须填写“防御式代码审查 / 清理候选”；无候选时写明已检查。
-- plan 必须声明 AFK/HITL 边界；用户设置的 review budget 是 hard gate，未设置时写 `none`，不得自行套用固定行数。
+- plan 必须声明 AFK/HITL、interaction budget 和 review mode reset；用户设置的 review budget 是 hard gate，未设置时写 `none`，不得自行套用固定行数。
 - 一个测试可以覆盖多个约束，不要为了表格制造低价值测试。
 - 实现后回填实际代码落点、测试名、命令和状态。
 - 独立 UI 需求必须包含“UI 原型确认”步骤和原型路径。

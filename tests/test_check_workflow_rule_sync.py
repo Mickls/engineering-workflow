@@ -38,6 +38,10 @@ class CheckWorkflowRuleSyncTest(unittest.TestCase):
             "risk-triggered-review",
             "preimplementation-acceptance",
             "behavior-risk-review-packet",
+            "prepared-decision-interview",
+            "context-ledger-recovery",
+            "acceptance-closure-follow-up",
+            "resource-aware-validation",
         }
         selected = {
             item.name: item
@@ -86,6 +90,36 @@ class CheckWorkflowRuleSyncTest(unittest.TestCase):
                 any(missing_marker in error for error in errors),
                 errors,
             )
+
+    def test_decision_efficiency_invariant_covers_duplicate_question_regression(self) -> None:
+        invariant = next(
+            item
+            for item in MODULE.INVARIANTS
+            if item.name == "prepared-decision-interview"
+        )
+        markers = {
+            marker
+            for checkpoint in invariant.checkpoints
+            for marker in checkpoint.markers
+        }
+        self.assertTrue(
+            {"discovery-complete", "semantic_key", "exception evidence"}
+            <= markers
+        )
+
+    def test_acceptance_closure_requires_follow_up_separation(self) -> None:
+        invariant = next(
+            item
+            for item in MODULE.INVARIANTS
+            if item.name == "acceptance-closure-follow-up"
+        )
+        markers = {
+            marker
+            for checkpoint in invariant.checkpoints
+            for marker in checkpoint.markers
+        }
+        self.assertIn("completion boundary", markers)
+        self.assertIn("建立 follow-up", markers)
 
     def test_validates_owner_and_consumer_roles(self) -> None:
         invariant = MODULE.RuleInvariant(

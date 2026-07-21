@@ -28,12 +28,21 @@
 
 - HITL 和最终交付先按 `review-packets.md` 提供普通语言的行为、目标关系、方案偏离、验收证据、剩余风险和最多三个用户 review 项。
 - 文件列表、完整命令、diff 和专业技术细节放在技术证据区，不能成为理解用户可见行为的前提。
+- 不重复执行历史、已废弃方案或逐步状态日志；只报告当前有效行为、偏离、证据和风险。
+
+## 完成边界和 Follow-up
+
+- 对照批准时冻结的验收场景判断当前需求是否完成，不用实现中新增的非阻塞改进持续推迟交付。
+- 原验收已满足时将当前需求关闭；相邻缺陷、优化和未来能力建立 follow-up，并说明是否阻塞当前交付。
+- 最终回复分别列出当前交付状态和 follow-up，不把“还有可优化项”表述成当前需求未完成。
 
 ## 项目上下文
 
 声明完成前复用同一任务的 readiness evidence，并确认其 `scan_scope` 覆盖最终 diff。入口、schema、validation、DI/bootstrap、generated code、命令、CI、领域术语或核心边界变化命中相关 `watch_patterns` 时，使用 `project-setup` 更新对应文档；无相关变化时不重复 refresh。
 
 本次 diff 触发统一实例化、DI/provider、generated code、schema/migration、事务、异步或手动流程时，design/plan 或 no-doc 清单必须已有对应 `architecture` 约束。
+
+上下文压缩或恢复本身不要求重复 refresh；source commit、scope、watch patterns 和 known gaps 未变化时复用 decision/evidence ledger。
 
 ## 防御式代码审查
 

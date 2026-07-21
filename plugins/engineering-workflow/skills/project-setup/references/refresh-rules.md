@@ -36,6 +36,10 @@
 - `HEAD` 或工作树新增变化命中相关 project 文档的 `watch_patterns`。
 - 新信息命中 `known_gaps`，或原证据文件被删除、替换、生成或迁移。
 
+上下文压缩、会话恢复、模型切换或跨天继续本身不使 readiness evidence 失效。恢复时先读取当前 issue 的 decision ledger / design / plan / handoff，核对 `source_commit`、scan scope、standing constraints、工作区状态和 known gaps；这些未变化时禁止重新做全仓或全调用链广泛搜索。
+
+如果账本、代码和状态文档互相冲突，执行一次集中 targeted refresh，修正当前有效事实和依赖后再继续；不得在每个用户回答后零散重搜或边问边修文档。
+
 每个 project 文档的 `watch_patterns` 只覆盖会改变该文档结论的来源；能列具体入口、配置或文档时，不使用整个仓库或全部 skills 的宽泛模式。
 
 ## 模式选择

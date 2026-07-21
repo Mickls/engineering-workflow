@@ -8,6 +8,9 @@
 - 当前状态：clarifying / awaiting-clarification-approval / clarification-approved / reopened
 - 关联需求：
 - 证据 freshness：
+- discovery 状态：research / discovery-complete
+- interview 状态：inactive / active / paused-for-research / complete
+- interaction budget：问题数 / 预计阅读时间 / 阻塞停点
 
 ## 当前目标
 
@@ -18,11 +21,17 @@
 
 ## 动态设计树
 
+## Decision Ledger
+
+| semantic_key | policy | scope | inherited_from | exceptions | dependents | confirmation source | 状态 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  | none |  |  | still-valid / needs-reconfirmation / invalidated |
+
 ## 问题地图
 
-| ID | 来源 | 实际场景 | decision owner | 依赖 | 状态 |
-| --- | --- | --- | --- | --- | --- |
-| Q-001 | current / introduced / conditional |  | user / AI |  | discovered / explaining / ready-for-decision / understood / confirmed / delegated / deferred / invalidated |
+| ID | semantic_key | 来源 | 实际场景 | decision owner | 依赖 | exception evidence | 状态 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Q-001 |  | current / introduced / conditional |  | user / AI |  | none | research / discovered / prepared / explaining / ready-for-decision / understood / confirmed / delegated / deferred / invalidated |
 
 ## 当前问题
 
@@ -32,6 +41,8 @@
 - 用户可见选项和代价：
 - 推荐及可能错误的条件：
 - 技术证据附录：
+- 当前问题为何未被已有决定覆盖：
+- 回答后已准备的下一步：
 
 ## 已确认决策
 
@@ -55,6 +66,8 @@
 - 待确认：
 - 暂缓：
 - 新增问题：
+- budget 使用：
+- delegated/recommended-default：none / ...
 
 ## 反向遗漏检查
 
@@ -73,7 +86,11 @@
 
 - 只记录影响设计或验收的事实、决定和依赖，不逐字转录聊天。
 - 问题进入地图前必须证明来源和实际场景；`speculative` 只记录到风险或拒绝方向，不成为用户问题。
+- `discovery-complete` 前不进入 interview；只有 `prepared` 问题可以成为 active question。
+- 新问题必须通过 semantic decision dedup、父决定继承和 standing constraint 检查；重新提问需要 exception evidence。
 - 对话中只允许一个 active question；`understood` 不等于 `confirmed`，`deferred` 不阻塞无依赖分支。
+- 用户纠正结论后先更新 dependents；普通回答不触发广泛调查，必要时暂停 interview 集中 research。
+- interaction budget 命中时合并问题或切换 delegated/recommended-default，不机械继续提问。
 - 用户疲劳、暂停或含糊回复时保持原状态，不新增问题、不推断批准。
 - 用户批准必须来自核销总结之后的明确消息；含糊表述保持 `waiting`。
 - `clarification-approved` 后才能创建 design/plan。

@@ -48,7 +48,38 @@ INVARIANTS = (
             Checkpoint(
                 "global-fail-safe",
                 "global/AGENTS.md",
-                ("真实场景", "问题地图", "澄清核销总结", "不得推断为批准"),
+                ("breadth discovery", "decision ledger", "用户纠错先审计全部依赖"),
+            ),
+        ),
+    ),
+    RuleInvariant(
+        "prepared-decision-interview",
+        (
+            Checkpoint(
+                "owner",
+                "plugins/engineering-workflow/skills/requirements-workflow/references/clarification-interview.md",
+                (
+                    "Discovery / Interview 分离",
+                    "discovery-complete",
+                    "semantic_key",
+                    "exception evidence",
+                    "Interaction Budget",
+                ),
+            ),
+            Checkpoint(
+                "checklist-consumer",
+                "plugins/engineering-workflow/skills/requirements-workflow/references/clarification-checklist.md",
+                ("breadth discovery", "semantic_key", "dependents", "interaction budget"),
+            ),
+            Checkpoint(
+                "artifact-consumer",
+                "plugins/engineering-workflow/skills/requirements-workflow/references/clarification-template.md",
+                ("discovery 状态", "Decision Ledger", "exception evidence", "delegated/recommended-default"),
+            ),
+            Checkpoint(
+                "global-fail-safe",
+                "global/AGENTS.md",
+                ("discovery-complete", "新问题先去重", "推荐代理"),
             ),
         ),
     ),
@@ -58,7 +89,7 @@ INVARIANTS = (
             Checkpoint(
                 "owner",
                 "plugins/engineering-workflow/skills/issue-slicing/references/execution-review-boundaries.md",
-                ("唯一 owner", "AFK 准入", "HITL 触发", "Review Budget"),
+                ("唯一 owner", "AFK 准入", "HITL 触发", "interaction budget", "Review Mode Reset"),
             ),
             Checkpoint(
                 "route",
@@ -73,12 +104,12 @@ INVARIANTS = (
             Checkpoint(
                 "plan-consumer",
                 "plugins/engineering-workflow/skills/requirements-workflow/references/plan-template.md",
-                ("执行和 Review 边界", "review budget"),
+                ("执行和 Review 边界", "interaction budget", "恢复 AFK 条件"),
             ),
             Checkpoint(
                 "global-fail-safe",
                 "global/AGENTS.md",
-                ("AFK 切片可连续执行", "升级 HITL", "review budget"),
+                ("AFK 是批准后默认模式", "升级 HITL", "恢复条件"),
             ),
         ),
     ),
@@ -98,7 +129,7 @@ INVARIANTS = (
             Checkpoint(
                 "global-fail-safe",
                 "global/AGENTS.md",
-                ("design/plan 只能写", "后续明确确认"),
+                ("design/plan 只能写", "按总结设计并实现", "已批准范围内"),
             ),
         ),
     ),
@@ -211,6 +242,31 @@ INVARIANTS = (
         ),
     ),
     RuleInvariant(
+        "resource-aware-validation",
+        (
+            Checkpoint(
+                "owner",
+                "plugins/engineering-workflow/skills/testing-policy/references/test-entry-and-value.md",
+                ("资源、隔离和重跑预算", "缓存目录", "历史残留", "自然里程碑"),
+            ),
+            Checkpoint(
+                "plan-consumer",
+                "plugins/engineering-workflow/skills/requirements-workflow/references/plan-template.md",
+                ("大资源测试的集中里程碑",),
+            ),
+            Checkpoint(
+                "coding-consumer",
+                "plugins/engineering-workflow/skills/coding-standards/references/review-checklist.md",
+                ("resource budget", "高成本验证"),
+            ),
+            Checkpoint(
+                "global-fail-safe",
+                "global/AGENTS.md",
+                ("缓存和资源预算", "自然里程碑"),
+            ),
+        ),
+    ),
+    RuleInvariant(
         "incident-evidence",
         (
             Checkpoint(
@@ -309,6 +365,51 @@ INVARIANTS = (
                 "delivery-consumer",
                 "plugins/engineering-workflow/skills/verification-delivery/references/delivery-checklists.md",
                 ("readiness evidence", "不重复 refresh"),
+            ),
+        ),
+    ),
+    RuleInvariant(
+        "context-ledger-recovery",
+        (
+            Checkpoint(
+                "owner",
+                "plugins/engineering-workflow/skills/project-setup/references/refresh-rules.md",
+                ("上下文压缩", "decision ledger", "禁止重新做全仓", "集中 targeted refresh"),
+            ),
+            Checkpoint(
+                "handoff-consumer",
+                "plugins/engineering-workflow/skills/engineering-handoff/references/handoff-template.md",
+                ("决定与证据账本", "source commit", "证据失效条件"),
+            ),
+            Checkpoint(
+                "global-fail-safe",
+                "global/AGENTS.md",
+                ("上下文压缩", "source_commit", "不全量重搜"),
+            ),
+        ),
+    ),
+    RuleInvariant(
+        "acceptance-closure-follow-up",
+        (
+            Checkpoint(
+                "owner",
+                "plugins/engineering-workflow/skills/requirements-workflow/references/scope-and-overimplementation.md",
+                ("验收冻结和 Follow-up", "completion boundary", "必须关闭并交付"),
+            ),
+            Checkpoint(
+                "issue-consumer",
+                "plugins/engineering-workflow/skills/requirements-workflow/references/issue-structure.md",
+                ("创建独立 follow-up", "完成定义"),
+            ),
+            Checkpoint(
+                "delivery-consumer",
+                "plugins/engineering-workflow/skills/verification-delivery/references/delivery-checklists.md",
+                ("完成边界和 Follow-up", "当前需求关闭"),
+            ),
+            Checkpoint(
+                "global-fail-safe",
+                "global/AGENTS.md",
+                ("验收场景通过后立即交付", "建立 follow-up"),
             ),
         ),
     ),
