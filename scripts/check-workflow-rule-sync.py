@@ -389,6 +389,26 @@ INVARIANTS = (
         ),
     ),
     RuleInvariant(
+        "proactive-subagent-orchestration",
+        (
+            Checkpoint(
+                "owner",
+                "global/AGENTS.md",
+                (
+                    "必须主动调用 Codex 原生子 agent",
+                    "无需用户逐次要求",
+                    "降低频繁上下文压缩",
+                    "不得静默退化为长时间串行检索",
+                ),
+            ),
+            Checkpoint(
+                "readme-consumer",
+                "README.md",
+                ("主动子 agent 并行", "主上下文卸载", "频繁上下文压缩"),
+            ),
+        ),
+    ),
+    RuleInvariant(
         "acceptance-closure-follow-up",
         (
             Checkpoint(

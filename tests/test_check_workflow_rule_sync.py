@@ -121,6 +121,25 @@ class CheckWorkflowRuleSyncTest(unittest.TestCase):
         self.assertIn("completion boundary", markers)
         self.assertIn("建立 follow-up", markers)
 
+    def test_proactive_subagent_rule_does_not_require_per_task_user_prompt(self) -> None:
+        invariant = next(
+            item
+            for item in MODULE.INVARIANTS
+            if item.name == "proactive-subagent-orchestration"
+        )
+        owner = next(
+            checkpoint
+            for checkpoint in invariant.checkpoints
+            if checkpoint.role == "owner"
+        )
+        self.assertEqual(
+            {"owner", "readme-consumer"},
+            {checkpoint.role for checkpoint in invariant.checkpoints},
+        )
+        self.assertIn("必须主动调用 Codex 原生子 agent", owner.markers)
+        self.assertIn("无需用户逐次要求", owner.markers)
+        self.assertIn("不得静默退化为长时间串行检索", owner.markers)
+
     def test_validates_owner_and_consumer_roles(self) -> None:
         invariant = MODULE.RuleInvariant(
             "demo",

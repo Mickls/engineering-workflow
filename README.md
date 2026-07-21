@@ -7,7 +7,7 @@
 - `plugins/engineering-workflow`：Codex plugin，内含项目初始化、需求、普通诊断、线上问题排查、原型、需求拆分、架构审查、通用编码、测试、工程交接、验证交付等 skills。
 - `.agents/plugins/marketplace.json`：本目录自带的本地 marketplace。
 
-工作流用项目上下文、interview 前的完整 discovery、可继承的 decision ledger、真实场景驱动的低负担澄清、风险触发的 AFK/HITL 切片、编码前验收场景、实现路径契约、完整链路测试和基于证据的交付门禁，减少重复确认、疲劳等待、“测试全过但实际不可用”、实现偏离和不必要的人工 review。
+工作流用项目上下文、interview 前的完整 discovery、可继承的 decision ledger、主动子 agent 并行与主上下文卸载、真实场景驱动的低负担澄清、风险触发的 AFK/HITL 切片、编码前验收场景、实现路径契约、完整链路测试和基于证据的交付门禁，减少重复确认、频繁上下文压缩、疲劳等待、“测试全过但实际不可用”、实现偏离和不必要的人工 review。
 
 skill 的 frontmatter `description` 只承担 progressive disclosure 的路由职责，前置说明何时使用和必要边界；`SKILL.md` 正文保留核心流程、硬门禁和 reference 路由，详细 checklist、模板和语言规则放入按需读取的 `references/`。`agents/openai.yaml` 的 `default_prompt` 只提供一句调用示例，不复制 skill 流程。
 
